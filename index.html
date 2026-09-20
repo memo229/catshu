@@ -2,49 +2,60 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CatShu City Runner — Visual Demo</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>CatShu Runner — Playable</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div id="game">
-  <div class="scene"></div>
-  <div class="speed-lines"></div>
-  <div class="petals"></div>
-
+  <div class="world"></div>
+  <div class="road"></div>
+  <div class="speed"></div>
   <div class="hud">
     <button id="pause">Ⅱ</button>
-    <div class="hud-box"><small>SCORE</small><b id="score">0</b></div>
-    <div class="hud-box"><small>DISTANCE</small><b><span id="distance">0</span>m</b></div>
-    <div class="hud-box"><small>COMBO</small><b id="combo">x1</b></div>
+    <div><small>SCORE</small><b id="score">0</b></div>
+    <div><small>DISTANCE</small><b id="distance">0m</b></div>
+    <div><small>COMBO</small><b id="combo">x1</b></div>
   </div>
 
-  <div class="lane-glow l1"></div><div class="lane-glow l2"></div>
-  <div class="runner-wrap" id="runner">
-    <img src="assets/runner.png" alt="CatShu runner">
-    <div class="runner-shadow"></div>
+  <div id="objects"></div>
+
+  <div id="player">
+    <div class="shadow"></div>
+    <img id="runner" src="assets/run_0.png">
   </div>
 
-  <div class="collectibles" id="collectibles"></div>
-  <div class="obstacles" id="obstacles"></div>
-
-  <div class="controls">
-    <button data-act="left">‹</button>
-    <button data-act="jump">↑<span>JUMP</span></button>
-    <button data-act="slide">↓<span>SLIDE</span></button>
-    <button data-act="right">›</button>
+  <div class="touch">
+    <button data-a="left">‹</button>
+    <button data-a="jump">↑</button>
+    <button data-a="slide">↓</button>
+    <button data-a="right">›</button>
   </div>
 
-  <div class="intro" id="intro">
+  <section id="start" class="overlay">
     <div class="logo">♛ CATSHU <span>RUNNER</span></div>
     <p>RUN THROUGH THE CITY</p>
-    <button id="start">START RUN</button>
-    <div class="hint">← → change lane &nbsp; • &nbsp; ↑ jump &nbsp; • &nbsp; ↓ slide</div>
-  </div>
+    <button class="gold" id="startBtn">START RUN</button>
+    <button class="dark" id="charsBtn">CHARACTER</button>
+    <small>← → lane &nbsp; • &nbsp; ↑ jump &nbsp; • &nbsp; ↓ slide</small>
+  </section>
 
-  <div class="pause hidden" id="paused">
-    <h2>PAUSED</h2><button id="resume">RESUME</button>
-  </div>
+  <section id="pause" class="overlay hide">
+    <div class="card"><h1>PAUSED</h1><button class="gold" id="resume">RESUME</button><button class="dark" id="restart">RESTART</button></div>
+  </section>
+
+  <section id="over" class="overlay hide">
+    <div class="card"><p>RUN COMPLETE</p><h1 id="finalScore">0</h1>
+      <div class="results"><span>DISTANCE <b id="finalDistance">0m</b></span><span>STARS <b id="finalStars">0</b></span></div>
+      <button class="gold" id="again">RUN AGAIN</button><button class="dark" id="home">HOME</button>
+    </div>
+  </section>
+
+  <section id="characters" class="overlay hide">
+    <div class="card chars"><button class="x" id="closeChars">×</button><h2>CATSHU</h2>
+      <div class="grid" id="grid"></div><button class="gold" id="useChar">USE CHARACTER</button>
+    </div>
+  </section>
 </div>
 <script src="main.js"></script>
 </body>
