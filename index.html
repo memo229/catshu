@@ -3,60 +3,44 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>CatShu Runner — Playable</title>
+<title>CatShu Runner — Reference Demo</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div id="game">
-  <div class="world"></div>
-  <div class="road"></div>
-  <div class="speed"></div>
+  <canvas id="c"></canvas>
+
   <div class="hud">
-    <button id="pause">Ⅱ</button>
-    <div><small>SCORE</small><b id="score">0</b></div>
-    <div><small>DISTANCE</small><b id="distance">0m</b></div>
-    <div><small>COMBO</small><b id="combo">x1</b></div>
+    <button id="pause" class="round">Ⅱ</button>
+    <div class="coinBox"><span class="paw">🐾</span><b id="coins">0</b><span>/20</span></div>
+    <div class="score"><small>SCORE</small><b id="score">000000</b><span id="mult">x1</span></div>
   </div>
 
-  <div id="objects"></div>
-
-  <div id="player">
-    <div class="shadow"></div>
-    <img id="runner" src="assets/run_0.png">
-  </div>
-
-  <div class="touch">
-    <button data-a="left">‹</button>
-    <button data-a="jump">↑</button>
-    <button data-a="slide">↓</button>
-    <button data-a="right">›</button>
-  </div>
-
-  <section id="start" class="overlay">
-    <div class="logo">♛ CATSHU <span>RUNNER</span></div>
-    <p>RUN THROUGH THE CITY</p>
-    <button class="gold" id="startBtn">START RUN</button>
-    <button class="dark" id="charsBtn">CHARACTER</button>
-    <small>← → lane &nbsp; • &nbsp; ↑ jump &nbsp; • &nbsp; ↓ slide</small>
-  </section>
-
-  <section id="pause" class="overlay hide">
-    <div class="card"><h1>PAUSED</h1><button class="gold" id="resume">RESUME</button><button class="dark" id="restart">RESTART</button></div>
-  </section>
-
-  <section id="over" class="overlay hide">
-    <div class="card"><p>RUN COMPLETE</p><h1 id="finalScore">0</h1>
-      <div class="results"><span>DISTANCE <b id="finalDistance">0m</b></span><span>STARS <b id="finalStars">0</b></span></div>
-      <button class="gold" id="again">RUN AGAIN</button><button class="dark" id="home">HOME</button>
+  <div id="start" class="overlay">
+    <div class="card">
+      <div class="brand">CATSHU</div>
+      <h1>RUN THE KINGDOM</h1>
+      <p>Swipe / Arrow keys to change lanes.<br>Swipe up / ↑ to jump. Swipe down / ↓ to slide.</p>
+      <button id="play">PLAY</button>
     </div>
-  </section>
+  </div>
 
-  <section id="characters" class="overlay hide">
-    <div class="card chars"><button class="x" id="closeChars">×</button><h2>CATSHU</h2>
-      <div class="grid" id="grid"></div><button class="gold" id="useChar">USE CHARACTER</button>
+  <div id="gameover" class="overlay hidden">
+    <div class="card">
+      <div class="brand">CATSHU</div>
+      <h1>RUN ENDED</h1>
+      <p>Score <b id="finalScore">0</b> · Coins <b id="finalCoins">0</b></p>
+      <button id="again">RUN AGAIN</button>
     </div>
-  </section>
+  </div>
+
+  <div id="touch">
+    <button data-act="left">◀</button>
+    <button data-act="jump">▲</button>
+    <button data-act="slide">▼</button>
+    <button data-act="right">▶</button>
+  </div>
 </div>
-<script src="main.js"></script>
+<script src="game.js"></script>
 </body>
 </html>
