@@ -1,73 +1,21 @@
-const menuBtn=document.getElementById("menuBtn");
-const navLinks=document.getElementById("navLinks");
-menuBtn?.addEventListener("click",()=>navLinks.classList.toggle("open"));
-
-document.querySelectorAll('a[href^="#"]').forEach(a=>{
-  a.addEventListener("click",e=>{
-    const id=a.getAttribute("href");
-    const el=document.querySelector(id);
-    if(el){e.preventDefault();el.scrollIntoView({behavior:"smooth"});navLinks.classList.remove("open")}
-  });
-});
-
-const modal=document.getElementById("gameModal");
-const closeBtn=document.getElementById("gameClose");
-const startBtn=document.getElementById("startGame");
-const area=document.getElementById("gameArea");
-const startScreen=document.getElementById("gameStart");
-let timer=null,time=30,score=0,combo=0,best=Number(localStorage.getItem("catshuBest")||0);
-
-function openGame(){modal.classList.add("open");resetScreen()}
-function closeGame(){modal.classList.remove("open");stopGame()}
-document.querySelectorAll("[data-play]").forEach(b=>b.addEventListener("click",openGame));
-closeBtn.addEventListener("click",closeGame);
-modal.addEventListener("click",e=>{if(e.target===modal)closeGame()});
-document.getElementById("gBest").textContent=best;
-
-function resetScreen(){
-  stopGame();
-  document.getElementById("gTime").textContent=30;
-  document.getElementById("gScore").textContent=0;
-  document.getElementById("gCombo").textContent=0;
-  document.getElementById("gBest").textContent=best;
-  startScreen.style.display="flex";
-  startScreen.innerHTML=`<img src="assets/cat-gold.png" alt=""><h2>CATSHU REACTION</h2><p>Click the CatShu as fast as you can.</p><button class="btn primary" id="startGame">START GAME</button>`;
-  document.getElementById("startGame").addEventListener("click",startGame);
-}
-
-function startGame(){
-  stopGame(); time=30; score=0; combo=0; startScreen.style.display="none"; update();
-  spawn();
-  timer=setInterval(()=>{time--;update();if(time<=0)finish()},1000);
-}
-function stopGame(){if(timer){clearInterval(timer);timer=null}document.querySelector(".target")?.remove()}
-function update(){
-  document.getElementById("gTime").textContent=time;
-  document.getElementById("gScore").textContent=score;
-  document.getElementById("gCombo").textContent=combo;
-  document.getElementById("gBest").textContent=best;
-}
-function spawn(){
-  document.querySelector(".target")?.remove();
-  const t=document.createElement("div");t.className="target";t.textContent="🐱";
-  const maxX=Math.max(10,area.clientWidth-125),maxY=Math.max(10,area.clientHeight-125);
-  t.style.left=(10+Math.random()*Math.max(1,maxX-10))+"px";
-  t.style.top=(10+Math.random()*Math.max(1,maxY-10))+"px";
-  t.innerHTML=`🐱<small>CLICK</small>`;
-  t.addEventListener("click",()=>{combo++;score+=100+combo*10;if(score>best)best=score;update();spawn()});
-  area.appendChild(t);
-}
-function finish(){
-  stopGame();localStorage.setItem("catshuBest",best);update();
-  startScreen.style.display="flex";
-  startScreen.innerHTML=`<img src="assets/cat-gold.png" alt=""><h2>TIME'S UP!</h2><p>Your score: <strong style="color:#ffd429">${score}</strong></p><button class="btn primary" id="again">PLAY AGAIN</button>`;
-  document.getElementById("again").addEventListener("click",startGame);
-}
-
-document.getElementById("walletBtn").addEventListener("click",async()=>{
-  if(!window.ethereum){alert("No wallet detected yet. Wallet Connect will be added with the Web3 backend.");return}
-  try{
-    const accounts=await window.ethereum.request({method:"eth_requestAccounts"});
-    if(accounts?.[0]) document.getElementById("walletBtn").textContent=accounts[0].slice(0,6)+"..."+accounts[0].slice(-4);
-  }catch(err){console.log(err)}
-});
+const A='/catshu/assets/';
+const cats={black:'cat-black.png',gold:'cat-gold.png',white:'cat-white.png',pink:'cat-pink.png',brown:'cat-brown.png',gray:'cat-gray.png',red:'cat-red.png',cream:'cat-cream.png'};
+let selectedCat=localStorage.getItem('catshuCat')||'gold';let mode='reaction';let timer=null;let game={score:0,combo:0,time:30,best:Number(localStorage.getItem('catshuBest')||0),lives:3};
+const modal=document.getElementById('gameModal'), content=document.getElementById('gameContent');
+const img=n=>A+cats[n];
+function characterPicker(){return `<div class="game-screen"><div class="eyebrow">CHOOSE YOUR CATSHU</div><h2>Pick your fighter</h2><p>This CatShu will be used in the arena.</p><div class="chars">${Object.keys(cats).map(k=>`<button class="char-choice ${selectedCat===k?'selected':''}" data-cat="${k}"><img src="${img(k)}" alt="${k}"></button>`).join('')}</div><button class="btn primary" id="beginGame">CONTINUE →</button></div>`}
+function openGame(m='reaction'){mode=m;modal.classList.add('open');content.innerHTML=characterPicker();content.querySelectorAll('[data-cat]').forEach(b=>b.onclick=()=>{selectedCat=b.dataset.cat;localStorage.setItem('catshuCat',selectedCat);content.innerHTML=characterPicker();content.querySelectorAll('[data-cat]').forEach(x=>x.onclick=()=>{selectedCat=x.dataset.cat;localStorage.setItem('catshuCat',selectedCat);content.innerHTML=characterPicker();bindStart()});bindStart()});bindStart()}
+function bindStart(){const b=document.getElementById('beginGame');if(b)b.onclick=()=>startMode(mode)}
+function startMode(m){mode=m;clearInterval(timer);game={score:0,combo:0,time:m==='reaction'?30:m==='memory'?45:m==='dodge'?30:50,best:Number(localStorage.getItem('catshuBest')||0),lives:3};if(m==='reaction')reactionStart();else if(m==='memory')memoryStart();else if(m==='dodge')dodgeStart();else finalStart()}
+function hud(extra=''){return `<div class="game-top"><div><small>TIME</small><b id="gt">${game.time}</b></div><div><small>SCORE</small><b id="gs">0</b></div><div><small>COMBO</small><b id="gc">0</b></div><div><small>${extra||'BEST'}</small><b id="gl">${extra?game.lives:game.best}</b></div></div>`}
+function updateHud(){['gt','gs','gc'].forEach((id,i)=>{const e=document.getElementById(id);if(e)e.textContent=[game.time,game.score,game.combo][i]});const l=document.getElementById('gl');if(l)l.textContent=mode==='dodge'||mode==='final'?game.lives:game.best}
+function startTimer(onEnd){clearInterval(timer);timer=setInterval(()=>{game.time--;updateHud();if(game.time<=0){clearInterval(timer);onEnd()}},1000)}
+function board(){return `<div class="game-board" id="board"></div>`}
+function reactionStart(){content.innerHTML=hud()+board();const b=document.getElementById('board');const target=document.createElement('img');target.className='target';target.src=img(selectedCat);b.appendChild(target);let misses=0;function move(){const r=b.getBoundingClientRect();target.style.left=Math.max(8,Math.random()*(r.width-130))+'px';target.style.top=Math.max(8,Math.random()*(r.height-160))+'px';target.style.transform=`scale(${.78+Math.random()*.35})`}target.onclick=e=>{e.stopPropagation();game.combo++;game.score+=100+game.combo*12;move();updateHud()};b.onclick=()=>{if(game.time<=0)return;game.combo=0;misses++;game.score=Math.max(0,game.score-60);updateHud();if(misses>=3)endGame('TOO MANY MISSES')};move();startTimer(()=>endGame("TIME'S UP!"))}
+function endGame(title){clearInterval(timer);if(game.score>game.best){game.best=game.score;localStorage.setItem('catshuBest',game.best)}content.innerHTML=`${hud()}<div class="game-screen"><img src="${img(selectedCat)}"><h2>${title}</h2><p>Your score: <b>${game.score}</b></p><p class="muted">Best: ${game.best}</p><button class="btn primary" id="again">PLAY AGAIN</button></div>`;document.getElementById('again').onclick=()=>startMode(mode)}
+function memoryStart(){let level=3;let seq=[];let phase='show';let roundScore=0;content.innerHTML=hud()+`<div class="game-board"><div class="game-screen" id="mem"><h2>MEMORY</h2><p id="memMsg">Watch the sequence...</p><div class="memory-grid" id="memGrid"></div></div></div>`;const msg=document.getElementById('memMsg'),grid=document.getElementById('memGrid');function round(){seq=Array.from({length:level},()=>Object.keys(cats)[Math.floor(Math.random()*Object.keys(cats).length)]);grid.innerHTML='';phase='show';msg.textContent=`Remember ${level} cats...`;seq.forEach((k,i)=>setTimeout(()=>{grid.innerHTML=`<div class="memory-card"><img src="${img(k)}"></div>`},i*550));setTimeout(()=>{phase='input';msg.textContent='Now repeat the order';grid.innerHTML=seq.map((_,i)=>`<button class="memory-card" data-i="${i}">?</button>`).join('');grid.querySelectorAll('[data-i]').forEach(x=>x.onclick=()=>pick(Number(x.dataset.i)) )},level*550+450)}let pos=0;function pick(i){if(phase!=='input')return;const choices=Object.keys(cats);const current=choices[i%choices.length];let card=grid.querySelector(`[data-i="${i}"]`);card.innerHTML=`<img src="${img(current)}">`;if(current!==seq[pos]){game.combo=0;game.score=Math.max(0,game.score-100);msg.textContent='Wrong sequence — next round';pos=0;level=Math.max(3,level-1);updateHud();setTimeout(round,700);return}pos++;game.score+=150+level*25;game.combo++;updateHud();if(pos===seq.length){pos=0;level=Math.min(7,level+1);msg.textContent='Perfect!';setTimeout(round,600)}}round();startTimer(()=>endGame("TIME'S UP!"))}
+function dodgeStart(){content.innerHTML=hud('LIVES')+board()+`<div class="game-help">Drag your CatShu left/right • Collect the glowing orbs • Avoid obstacles</div>`;const b=document.getElementById('board');const p=document.createElement('img');p.className='dodge-player';p.src=img(selectedCat);b.appendChild(p);let x=.5;let keys={};function pos(){p.style.left=(x*100)+'%';p.style.transform='translateX(-50%)'}pos();b.onpointermove=e=>{const r=b.getBoundingClientRect();x=Math.max(.08,Math.min(.92,(e.clientX-r.left)/r.width));pos()};window.onkeydown=e=>{keys[e.key]=true};window.onkeyup=e=>{keys[e.key]=false};const obs=[];const spawn=setInterval(()=>{const o=document.createElement('div');o.className='obstacle';o.style.left=(Math.random()*88+6)+'%';o.style.top='-45px';b.appendChild(o);obs.push(o)},500);const loop=setInterval(()=>{if(keys.ArrowLeft||keys.a)x-=.025;if(keys.ArrowRight||keys.d)x+=.025;x=Math.max(.06,Math.min(.94,x));pos();obs.forEach((o,i)=>{o.style.top=(parseFloat(o.style.top)+5)+'px';const pr=p.getBoundingClientRect(),or=o.getBoundingClientRect();if(pr.left<or.right&&pr.right>or.left&&pr.top<or.bottom&&pr.bottom>or.top){o.remove();obs.splice(i,1);game.lives--;game.combo=0;updateHud();if(game.lives<=0){clearInterval(spawn);clearInterval(loop);window.onkeydown=null;window.onkeyup=null;endGame('GAME OVER')}}else if(parseFloat(o.style.top)>b.clientHeight){o.remove();obs.splice(i,1);game.score+=50;game.combo++;updateHud()}})},45);startTimer(()=>{clearInterval(spawn);clearInterval(loop);window.onkeydown=null;window.onkeyup=null;endGame("TIME'S UP!")})}
+function finalStart(){let stage=0,total=0;function next(){stage++;if(stage===1){reactionStart();}else if(stage===2){memoryStart()}else{dodgeStart()}}next()}
+document.querySelectorAll('[data-play]').forEach(b=>b.onclick=()=>openGame(b.dataset.play||'reaction'));
+document.getElementById('gameClose').onclick=()=>{clearInterval(timer);modal.classList.remove('open')};modal.addEventListener('click',e=>{if(e.target===modal){clearInterval(timer);modal.classList.remove('open')}});
+document.getElementById('walletBtn').onclick=async()=>{if(window.ethereum){try{const accounts=await window.ethereum.request({method:'eth_requestAccounts'});document.getElementById('walletBtn').textContent=accounts[0].slice(0,6)+'...'+accounts[0].slice(-4)}catch(e){}}else alert('Install a compatible wallet to connect.')};
