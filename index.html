@@ -1,1455 +1,190 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>CatShu — Play. Compete. Earn.</title>
-
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    font-family:Arial,Helvetica,sans-serif;
-    background:#07070b;
-    color:#fff;
-    overflow-x:hidden;
-}
-
-/* ---------- GLOBAL ---------- */
-
-:root{
-    --yellow:#ffd429;
-    --yellow2:#ff9d00;
-    --purple:#8b5cf6;
-    --pink:#ec4899;
-    --card:#111118;
-    --border:rgba(255,255,255,.09);
-}
-
-a{
-    color:inherit;
-    text-decoration:none;
-}
-
-button{
-    font-family:inherit;
-    cursor:pointer;
-}
-
-.container{
-    width:min(1180px,92%);
-    margin:auto;
-}
-
-/* ---------- NAV ---------- */
-
-nav{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    z-index:100;
-    background:rgba(7,7,11,.75);
-    backdrop-filter:blur(18px);
-    border-bottom:1px solid var(--border);
-}
-
-.nav-inner{
-    height:76px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-}
-
-.logo{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    font-size:22px;
-    font-weight:900;
-}
-
-.logo-mark{
-    width:38px;
-    height:38px;
-    border-radius:12px;
-    display:grid;
-    place-items:center;
-    background:linear-gradient(135deg,var(--yellow),var(--yellow2));
-    color:#080808;
-    font-size:22px;
-    box-shadow:0 0 25px rgba(255,190,0,.25);
-}
-
-.nav-links{
-    display:flex;
-    gap:30px;
-    color:#aaa;
-    font-size:14px;
-    font-weight:700;
-}
-
-.nav-links a:hover{
-    color:#fff;
-}
-
-.wallet{
-    padding:12px 18px;
-    border-radius:10px;
-    border:1px solid rgba(255,212,41,.35);
-    background:rgba(255,212,41,.08);
-    color:var(--yellow);
-    font-weight:800;
-}
-
-.wallet:hover{
-    background:rgba(255,212,41,.16);
-}
-
-/* ---------- HERO ---------- */
-
-.hero{
-    min-height:850px;
-    padding-top:76px;
-    position:relative;
-    display:flex;
-    align-items:center;
-    overflow:hidden;
-}
-
-.hero:before{
-    content:"";
-    position:absolute;
-    width:700px;
-    height:700px;
-    left:-250px;
-    top:100px;
-    background:radial-gradient(circle,rgba(255,190,0,.12),transparent 65%);
-}
-
-.hero:after{
-    content:"";
-    position:absolute;
-    width:700px;
-    height:700px;
-    right:-300px;
-    bottom:-250px;
-    background:radial-gradient(circle,rgba(139,92,246,.14),transparent 65%);
-}
-
-.hero-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:60px;
-    align-items:center;
-    position:relative;
-    z-index:2;
-}
-
-.badge{
-    display:inline-flex;
-    padding:8px 13px;
-    border-radius:100px;
-    background:rgba(255,212,41,.08);
-    border:1px solid rgba(255,212,41,.25);
-    color:var(--yellow);
-    font-size:12px;
-    font-weight:900;
-    letter-spacing:1px;
-    margin-bottom:22px;
-}
-
-.hero h1{
-    font-size:clamp(55px,7vw,95px);
-    line-height:.9;
-    letter-spacing:-5px;
-    margin-bottom:25px;
-}
-
-.hero h1 span{
-    color:var(--yellow);
-}
-
-.hero p{
-    color:#a3a3ad;
-    font-size:18px;
-    line-height:1.7;
-    max-width:560px;
-}
-
-.buttons{
-    display:flex;
-    gap:14px;
-    margin-top:32px;
-}
-
-.btn{
-    padding:15px 24px;
-    border-radius:11px;
-    border:1px solid var(--border);
-    font-weight:900;
-    font-size:14px;
-    transition:.2s;
-}
-
-.btn-primary{
-    background:linear-gradient(135deg,var(--yellow),var(--yellow2));
-    color:#080808;
-    box-shadow:0 10px 35px rgba(255,180,0,.18);
-}
-
-.btn-primary:hover{
-    transform:translateY(-2px);
-    box-shadow:0 15px 40px rgba(255,180,0,.3);
-}
-
-.btn-secondary{
-    background:#111118;
-    color:#fff;
-}
-
-.btn-secondary:hover{
-    background:#181820;
-}
-
-/* ---------- HERO GAME CARD ---------- */
-
-.game-preview{
-    position:relative;
-    height:520px;
-    border:1px solid rgba(255,255,255,.1);
-    border-radius:25px;
-    background:
-        radial-gradient(circle at 50% 45%,rgba(139,92,246,.18),transparent 30%),
-        linear-gradient(145deg,#13131d,#08080d);
-    overflow:hidden;
-    box-shadow:0 30px 100px rgba(0,0,0,.5);
-}
-
-.game-preview:before{
-    content:"";
-    position:absolute;
-    inset:0;
-    background-image:
-        linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
-    background-size:45px 45px;
-}
-
-.preview-top{
-    position:absolute;
-    top:20px;
-    left:22px;
-    right:22px;
-    display:flex;
-    justify-content:space-between;
-    font-size:11px;
-    color:#777;
-    z-index:3;
-}
-
-.preview-score{
-    color:var(--yellow);
-    font-weight:900;
-}
-
-.cat{
-    position:absolute;
-    width:155px;
-    height:155px;
-    border-radius:45% 45% 42% 42%;
-    display:grid;
-    place-items:center;
-    font-size:72px;
-    filter:drop-shadow(0 20px 25px rgba(0,0,0,.35));
-}
-
-.cat:before,
-.cat:after{
-    content:"";
-    position:absolute;
-    top:-20px;
-    width:50px;
-    height:55px;
-    background:inherit;
-    z-index:-1;
-}
-
-.cat:before{
-    left:5px;
-    transform:rotate(-30deg);
-    border-radius:10px 35px 0 35px;
-}
-
-.cat:after{
-    right:5px;
-    transform:rotate(30deg);
-    border-radius:35px 10px 35px 0;
-}
-
-.cat1{
-    background:#ffd23f;
-    left:55px;
-    bottom:70px;
-}
-
-.cat2{
-    background:#ef4444;
-    right:45px;
-    top:110px;
-    transform:scale(.8);
-}
-
-.cat3{
-    background:#f1f1f1;
-    left:210px;
-    top:150px;
-    transform:scale(.72);
-}
-
-.target{
-    position:absolute;
-    width:110px;
-    height:110px;
-    border:3px solid var(--yellow);
-    border-radius:50%;
-    right:115px;
-    bottom:80px;
-    display:grid;
-    place-items:center;
-    color:var(--yellow);
-    font-size:11px;
-    font-weight:900;
-    animation:pulse 1.5s infinite;
-}
-
-.target:before{
-    content:"";
-    position:absolute;
-    inset:12px;
-    border:1px solid rgba(255,212,41,.4);
-    border-radius:50%;
-}
-
-@keyframes pulse{
-    0%,100%{transform:scale(1);opacity:1}
-    50%{transform:scale(1.08);opacity:.7}
-}
-
-/* ---------- STATS ---------- */
-
-.stats{
-    border-top:1px solid var(--border);
-    border-bottom:1px solid var(--border);
-    background:#0b0b10;
-}
-
-.stats-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-}
-
-.stat{
-    padding:35px 20px;
-    text-align:center;
-    border-right:1px solid var(--border);
-}
-
-.stat:last-child{
-    border:0;
-}
-
-.stat strong{
-    display:block;
-    font-size:30px;
-    color:var(--yellow);
-    margin-bottom:7px;
-}
-
-.stat span{
-    color:#777;
-    font-size:12px;
-    text-transform:uppercase;
-    letter-spacing:1px;
-}
-
-/* ---------- SECTION ---------- */
-
-section{
-    padding:110px 0;
-}
-
-.section-title{
-    text-align:center;
-    margin-bottom:55px;
-}
-
-.section-title small{
-    color:var(--yellow);
-    font-weight:900;
-    letter-spacing:2px;
-}
-
-.section-title h2{
-    font-size:48px;
-    letter-spacing:-2px;
-    margin:12px 0;
-}
-
-.section-title p{
-    color:#777;
-}
-
-/* ---------- MODES ---------- */
-
-.modes{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:16px;
-}
-
-.mode{
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:18px;
-    padding:27px;
-    min-height:210px;
-    transition:.25s;
-}
-
-.mode:hover{
-    transform:translateY(-6px);
-    border-color:rgba(255,212,41,.3);
-}
-
-.mode-icon{
-    width:48px;
-    height:48px;
-    border-radius:13px;
-    background:rgba(255,212,41,.1);
-    display:grid;
-    place-items:center;
-    font-size:23px;
-    margin-bottom:22px;
-}
-
-.mode h3{
-    margin-bottom:10px;
-}
-
-.mode p{
-    color:#777;
-    font-size:13px;
-    line-height:1.6;
-}
-
-/* ---------- LEADERBOARD ---------- */
-
-.leaderboard-wrap{
-    display:grid;
-    grid-template-columns:1fr 350px;
-    gap:25px;
-}
-
-.board,
-.qualify{
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:20px;
-    overflow:hidden;
-}
-
-.board-head{
-    padding:20px 25px;
-    border-bottom:1px solid var(--border);
-    display:flex;
-    justify-content:space-between;
-}
-
-.board-head span{
-    color:#777;
-    font-size:12px;
-}
-
-.player{
-    display:grid;
-    grid-template-columns:60px 1fr 100px;
-    align-items:center;
-    padding:18px 25px;
-    border-bottom:1px solid rgba(255,255,255,.05);
-}
-
-.rank{
-    color:#777;
-    font-weight:900;
-}
-
-.player-name{
-    display:flex;
-    align-items:center;
-    gap:12px;
-}
-
-.mini-cat{
-    width:36px;
-    height:36px;
-    border-radius:10px;
-    display:grid;
-    place-items:center;
-    background:#ffd23f;
-}
-
-.score{
-    text-align:right;
-    color:var(--yellow);
-    font-weight:900;
-}
-
-.qualify{
-    padding:30px;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-}
-
-.qualify .big{
-    font-size:55px;
-    font-weight:900;
-    color:var(--yellow);
-    margin:10px 0;
-}
-
-.qualify p{
-    color:#777;
-    line-height:1.6;
-    font-size:14px;
-}
-
-.progress{
-    height:8px;
-    background:#22222a;
-    border-radius:20px;
-    overflow:hidden;
-    margin:25px 0 10px;
-}
-
-.progress div{
-    width:88%;
-    height:100%;
-    background:linear-gradient(90deg,var(--yellow),var(--yellow2));
-}
-
-.qualify small{
-    color:#777;
-}
-
-/* ---------- CTA ---------- */
-
-.cta{
-    text-align:center;
-    background:
-        radial-gradient(circle at center,rgba(255,190,0,.1),transparent 45%);
-}
-
-.cta h2{
-    font-size:55px;
-    letter-spacing:-3px;
-    margin-bottom:15px;
-}
-
-.cta p{
-    color:#777;
-    margin-bottom:30px;
-}
-
-/* ---------- FOOTER ---------- */
-
-footer{
-    border-top:1px solid var(--border);
-    padding:35px 0;
-    color:#666;
-    font-size:13px;
-}
-
-.footer-inner{
-    display:flex;
-    justify-content:space-between;
-}
-
-.footer-logo{
-    color:#fff;
-    font-weight:900;
-}
-
-/* ---------- GAME MODAL ---------- */
-
-.modal{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.88);
-    backdrop-filter:blur(12px);
-    z-index:500;
-    display:none;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-}
-
-.modal.active{
-    display:flex;
-}
-
-.game-box{
-    width:min(800px,100%);
-    height:min(650px,90vh);
-    background:#0b0b10;
-    border:1px solid rgba(255,255,255,.12);
-    border-radius:22px;
-    overflow:hidden;
-    position:relative;
-}
-
-.game-header{
-    height:70px;
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    border-bottom:1px solid var(--border);
-}
-
-.game-stat{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    border-right:1px solid var(--border);
-}
-
-.game-stat span{
-    color:#666;
-    font-size:10px;
-    margin-bottom:4px;
-}
-
-.game-stat strong{
-    color:var(--yellow);
-}
-
-.close{
-    position:absolute;
-    top:16px;
-    right:18px;
-    z-index:10;
-    border:0;
-    background:transparent;
-    color:#888;
-    font-size:25px;
-}
-
-.game-area{
-    position:absolute;
-    top:70px;
-    bottom:0;
-    left:0;
-    right:0;
-    overflow:hidden;
-    background:
-        radial-gradient(circle at center,rgba(139,92,246,.15),transparent 35%),
-        #08080c;
-}
-
-.game-area:before{
-    content:"";
-    position:absolute;
-    inset:0;
-    background-image:
-        linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);
-    background-size:40px 40px;
-}
-
-.game-target{
-    position:absolute;
-    width:130px;
-    height:130px;
-    border-radius:50%;
-    background:linear-gradient(135deg,#ffd429,#ff9800);
-    display:grid;
-    place-items:center;
-    color:#080808;
-    font-size:35px;
-    box-shadow:0 0 50px rgba(255,190,0,.35);
-    user-select:none;
-    transition:.12s;
-}
-
-.game-target span{
-    font-size:11px;
-    font-weight:900;
-}
-
-.start-screen{
-    position:absolute;
-    inset:0;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex-direction:column;
-    z-index:5;
-    background:rgba(8,8,12,.75);
-}
-
-.start-screen h2{
-    font-size:38px;
-    margin-bottom:10px;
-}
-
-.start-screen p{
-    color:#777;
-    margin-bottom:25px;
-}
-
-/* ---------- RESPONSIVE ---------- */
-
-@media(max-width:900px){
-
-    .nav-links{
-        display:none;
-    }
-
-    .hero-grid{
-        grid-template-columns:1fr;
-    }
-
-    .hero{
-        padding-top:130px;
-        padding-bottom:80px;
-    }
-
-    .game-preview{
-        height:430px;
-    }
-
-    .modes{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .leaderboard-wrap{
-        grid-template-columns:1fr;
-    }
-
-    .stats-grid{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .stat:nth-child(2){
-        border-right:0;
-    }
-
-    .stat{
-        border-bottom:1px solid var(--border);
-    }
-}
-
-@media(max-width:550px){
-
-    .hero h1{
-        font-size:55px;
-    }
-
-    .hero p{
-        font-size:15px;
-    }
-
-    .buttons{
-        flex-direction:column;
-    }
-
-    .btn{
-        text-align:center;
-    }
-
-    .modes{
-        grid-template-columns:1fr;
-    }
-
-    .section-title h2{
-        font-size:38px;
-    }
-
-    .cta h2{
-        font-size:40px;
-    }
-
-    .game-preview{
-        height:350px;
-    }
-
-    .cat{
-        width:100px;
-        height:100px;
-        font-size:45px;
-    }
-
-    .cat1{
-        left:20px;
-    }
-
-    .cat2{
-        right:20px;
-    }
-
-    .cat3{
-        left:130px;
-    }
-
-    .target{
-        width:80px;
-        height:80px;
-        right:45px;
-        bottom:50px;
-    }
-}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#060914">
+  <meta name="description" content="CatShu — Play. Compete. Earn.">
+  <title>CatShu — Play. Compete. Earn.</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+<div class="site-bg"></div>
 
-<!-- NAV -->
-<nav>
-    <div class="container nav-inner">
+<header class="nav">
+  <a class="brand" href="#home">
+    <span class="brand-cat">♛</span>
+    <span class="brand-word">Cat<span>Shu</span></span>
+    <small>PLAY • COMPETE • EARN</small>
+  </a>
 
-        <a href="#" class="logo">
-            <div class="logo-mark">🐱</div>
-            CATSHU
-        </a>
+  <nav class="links" id="navLinks">
+    <a class="active" href="#home">⌂ <span>Home</span></a>
+    <a href="#play">🎮 <span>Play</span></a>
+    <a href="#leaderboard">🏆 <span>Leaderboard</span></a>
+    <a href="#collection">▣ <span>NFT Collection</span></a>
+    <a href="#about">ⓘ <span>About</span></a>
+    <a href="#roadmap">◈ <span>Roadmap</span></a>
+    <a href="#faq">? <span>FAQ</span></a>
+  </nav>
 
-        <div class="nav-links">
-            <a href="#play">PLAY</a>
-            <a href="#modes">MODES</a>
-            <a href="#leaderboard">LEADERBOARD</a>
-            <a href="#about">ABOUT</a>
-        </div>
+  <button class="wallet" id="walletBtn">▣ &nbsp; Connect Wallet</button>
+  <button class="hamburger" id="menuBtn">☰</button>
+</header>
 
-        <button class="wallet" onclick="connectWallet()">
-            CONNECT WALLET
-        </button>
-
+<main>
+<section class="hero" id="home">
+  <div class="hero-copy">
+    <div class="eyebrow">CATSHU GAME • SEASON 01</div>
+    <h1>MORE THAN<br>JUST <em>CATS</em><b>♛</b></h1>
+    <p>Play. Compete. Earn your place in the CatShu universe.<br>
+      <strong>Top 1,100 players will qualify for the CatShu NFT mint.</strong>
+    </p>
+    <div class="hero-actions">
+      <button class="btn primary" data-play>🎮 &nbsp; Start Playing <span>→</span></button>
+      <a class="btn secondary" href="#leaderboard">🏆 &nbsp; View Leaderboard</a>
     </div>
-</nav>
+    <div class="hero-tagline">A STRONGER COMMUNITY. <span>A BRIGHTER TOMORROW.</span></div>
+  </div>
 
-
-<!-- HERO -->
-<section class="hero" id="about">
-
-    <div class="container hero-grid">
-
-        <div>
-
-            <div class="badge">
-                CATSHU GAME • SEASON 01
-            </div>
-
-            <h1>
-                PLAY.<br>
-                COMPETE.<br>
-                <span>EARN.</span>
-            </h1>
-
-            <p>
-                Enter the CatShu universe, compete against other players,
-                climb the leaderboard and secure your place among the
-                <strong>Top 1,100</strong>.
-            </p>
-
-            <div class="buttons">
-
-                <button class="btn btn-primary"
-                        onclick="openGame()">
-                    🎮 START PLAYING
-                </button>
-
-                <a class="btn btn-secondary"
-                   href="#leaderboard">
-                    🏆 LEADERBOARD
-                </a>
-
-            </div>
-
-        </div>
-
-
-        <div class="game-preview">
-
-            <div class="preview-top">
-                <span>CATSHU ARENA</span>
-                <span class="preview-score">
-                    SCORE 8,420
-                </span>
-            </div>
-
-            <div class="cat cat1">🐱</div>
-            <div class="cat cat2">😼</div>
-            <div class="cat cat3">😺</div>
-
-            <div class="target">
-                CLICK
-            </div>
-
-        </div>
-
-    </div>
-
+  <div class="hero-art">
+    <div class="ruin ruin-a"></div>
+    <div class="ruin ruin-b"></div>
+    <div class="floating-island island-a"></div>
+    <div class="floating-island island-b"></div>
+    <div class="torch t1"></div><div class="torch t2"></div><div class="torch t3"></div>
+    <div class="castle-sign">♛<strong>CATSHU</strong><span>LEGENDS PLAY HERE.</span></div>
+    <div class="cat-hero black"><img src="assets/cat-black.png" alt="Black CatShu"></div>
+    <div class="cat-hero gold"><img src="assets/cat-gold.png" alt="Gold CatShu"></div>
+    <div class="cat-hero white"><img src="assets/cat-white.png" alt="White CatShu"></div>
+    <div class="cat-hero pink"><img src="assets/cat-pink.png" alt="Pink CatShu"></div>
+    <div class="hero-banner">GOOD PLAYERS<br><b>GET NFTs</b></div>
+  </div>
 </section>
 
-
-<!-- STATS -->
-<div class="stats">
-
-    <div class="container stats-grid">
-
-        <div class="stat">
-            <strong>1,111</strong>
-            <span>NFT Collection</span>
-        </div>
-
-        <div class="stat">
-            <strong>1,100</strong>
-            <span>Player Qualifiers</span>
-        </div>
-
-        <div class="stat">
-            <strong>4</strong>
-            <span>Game Modes</span>
-        </div>
-
-        <div class="stat">
-            <strong>∞</strong>
-            <span>Competition</span>
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- GAME MODES -->
-<section id="modes">
-
-    <div class="container">
-
-        <div class="section-title">
-            <small>THE ARENA</small>
-            <h2>Choose Your Challenge</h2>
-            <p>Different skills. One leaderboard.</p>
-        </div>
-
-
-        <div class="modes">
-
-            <div class="mode">
-                <div class="mode-icon">⚡</div>
-                <h3>Reaction</h3>
-                <p>
-                    Find the CatShu and react as fast as possible.
-                    Speed and accuracy matter.
-                </p>
-            </div>
-
-            <div class="mode">
-                <div class="mode-icon">🧠</div>
-                <h3>Memory</h3>
-                <p>
-                    Remember the pattern and reproduce it before
-                    the timer runs out.
-                </p>
-            </div>
-
-            <div class="mode">
-                <div class="mode-icon">🔥</div>
-                <h3>Dodge</h3>
-                <p>
-                    Survive the arena, avoid obstacles and build
-                    your highest combo.
-                </p>
-            </div>
-
-            <div class="mode">
-                <div class="mode-icon">👑</div>
-                <h3>Final Challenge</h3>
-                <p>
-                    The ultimate challenge. Only the best scores
-                    reach the top.
-                </p>
-            </div>
-
-        </div>
-
-    </div>
-
+<section class="stats">
+  <div class="stat"><div class="stat-icon">♙</div><strong>1,100</strong><span>NFTs for Top Players</span></div>
+  <div class="stat"><div class="stat-icon">🎮</div><strong>4</strong><span>Game Modes</span></div>
+  <div class="stat"><div class="stat-icon">🎁</div><strong>1,111</strong><span>Total Collection</span></div>
+  <div class="stat"><div class="stat-icon">▥</div><strong>Fair</strong><span>Transparent Leaderboard</span></div>
+  <div class="stat"><div class="stat-icon">◆</div><strong>∞</strong><span>Community Competition</span></div>
 </section>
 
+<section class="modes" id="play">
+  <div class="section-head">
+    <div><span class="kicker">THE ARENA</span><h2>GAME MODES</h2><p>Master your skills across multiple challenges. Your total score will determine your rank!</p></div>
+    <button class="how">HOW IT WORKS? <span>→</span></button>
+  </div>
 
-<!-- LEADERBOARD -->
-<section id="leaderboard">
-
-    <div class="container">
-
-        <div class="section-title">
-            <small>LIVE RANKINGS</small>
-            <h2>Leaderboard</h2>
-            <p>Climb the ranks. Secure your place.</p>
-        </div>
-
-
-        <div class="leaderboard-wrap">
-
-            <div class="board">
-
-                <div class="board-head">
-                    <strong>TOP PLAYERS</strong>
-                    <span>SEASON 01</span>
-                </div>
-
-
-                <div class="player">
-                    <div class="rank">#1</div>
-                    <div class="player-name">
-                        <div class="mini-cat">🐱</div>
-                        ShadowCat
-                    </div>
-                    <div class="score">98,420</div>
-                </div>
-
-
-                <div class="player">
-                    <div class="rank">#2</div>
-                    <div class="player-name">
-                        <div class="mini-cat">😼</div>
-                        CatLord
-                    </div>
-                    <div class="score">96,210</div>
-                </div>
-
-
-                <div class="player">
-                    <div class="rank">#3</div>
-                    <div class="player-name">
-                        <div class="mini-cat">😺</div>
-                        Neko
-                    </div>
-                    <div class="score">94,880</div>
-                </div>
-
-
-                <div class="player">
-                    <div class="rank">#4</div>
-                    <div class="player-name">
-                        <div class="mini-cat">🐱</div>
-                        SamuraiCat
-                    </div>
-                    <div class="score">92,410</div>
-                </div>
-
-
-                <div class="player">
-                    <div class="rank">#5</div>
-                    <div class="player-name">
-                        <div class="mini-cat">😼</div>
-                        CryptoCat
-                    </div>
-                    <div class="score">91,775</div>
-                </div>
-
-            </div>
-
-
-            <div class="qualify">
-
-                <span style="color:#777;font-size:12px">
-                    NFT QUALIFICATION
-                </span>
-
-                <div class="big">
-                    TOP 1,100
-                </div>
-
-                <p>
-                    Finish inside the qualifying positions
-                    to become eligible for the CatShu NFT mint.
-                </p>
-
-                <div class="progress">
-                    <div></div>
-                </div>
-
-                <small>
-                    1,100 / 1,111 player rewards
-                </small>
-
-            </div>
-
-        </div>
-
-    </div>
-
+  <div class="mode-grid">
+    <article class="mode reaction">
+      <div class="mode-art"><img src="assets/cat-gold.png" alt=""></div>
+      <div class="mode-body"><h3>⚡ REACTION</h3><p>Click the cats as fast as you can!</p><button class="play-mode" data-play>Play</button></div>
+    </article>
+    <article class="mode memory">
+      <div class="mode-art"><img src="assets/cat-pink.png" alt=""></div>
+      <div class="mode-body"><h3>◉ MEMORY</h3><p>Remember the correct order!</p><button class="play-mode" data-play>Play</button></div>
+    </article>
+    <article class="mode dodge">
+      <div class="mode-art"><img src="assets/cat-black.png" alt=""></div>
+      <div class="mode-body"><h3>♟ DODGE</h3><p>Avoid obstacles and survive!</p><button class="play-mode" data-play>Play</button></div>
+    </article>
+    <article class="mode final">
+      <div class="mode-art"><img src="assets/cat-white.png" alt=""></div>
+      <div class="mode-body"><h3>♛ FINAL CHALLENGE</h3><p>Combine all skills. Prove you're the best!</p><button class="play-mode" data-play>Play</button></div>
+    </article>
+  </div>
 </section>
 
-
-<!-- CTA -->
-<section class="cta" id="play">
-
-    <div class="container">
-
-        <h2>READY TO PLAY?</h2>
-
-        <p>
-            Your place on the leaderboard starts here.
-        </p>
-
-        <button class="btn btn-primary"
-                onclick="openGame()">
-            🎮 ENTER THE ARENA
-        </button>
-
+<section class="leader" id="leaderboard">
+  <div class="section-head compact">
+    <div><span class="kicker">SEASON 01</span><h2>LIVE LEADERBOARD</h2><p>Every score counts. The qualifying line is #1,100.</p></div>
+    <span class="live">● Live</span>
+  </div>
+  <div class="leader-layout">
+    <div class="table">
+      <div class="row head"><span>#</span><span>PLAYER</span><span>SCORE</span></div>
+      <div class="row"><b>🥇</b><span class="player"><i>😺</i> CatKing</span><strong>12,492</strong></div>
+      <div class="row"><b>🥈</b><span class="player"><i>😼</i> NekoMaster</span><strong>12,381</strong></div>
+      <div class="row"><b>🥉</b><span class="player"><i>🐱</i> ShuuLegend</span><strong>12,217</strong></div>
+      <div class="row"><b>4</b><span class="player"><i>😺</i> MoonCat</span><strong>11,904</strong></div>
+      <div class="row"><b>5</b><span class="player"><i>😼</i> KittySniper</span><strong>11,762</strong></div>
+      <div class="row you"><b>#1,100</b><span class="player"><i>🐱</i> You</span><strong>8,197</strong></div>
     </div>
-
+    <aside class="qualify">
+      <span class="kicker">NFT QUALIFICATION</span>
+      <div class="qualify-number">TOP <b>1,100</b></div>
+      <p>Finish inside the qualifying positions to become eligible for the CatShu NFT mint.</p>
+      <div class="progress"><i></i></div>
+      <small>1,100 player rewards • 1,111 NFTs</small>
+    </aside>
+  </div>
 </section>
 
+<section class="collection" id="collection">
+  <div class="section-head compact"><div><span class="kicker">THE COLLECTION</span><h2>CATSHU NFT</h2><p>1,111 unique CatShu characters. Your place in the arena can unlock yours.</p></div></div>
+  <div class="collection-grid">
+    <div class="collector-card big"><img src="assets/cat-gold.png" alt=""><span>CATSHU #0001</span></div>
+    <div class="collector-card"><img src="assets/cat-white.png" alt=""><span>CATSHU #0002</span></div>
+    <div class="collector-card"><img src="assets/cat-black.png" alt=""><span>CATSHU #0003</span></div>
+    <div class="collector-card"><img src="assets/cat-pink.png" alt=""><span>CATSHU #0004</span></div>
+  </div>
+</section>
 
-<!-- FOOTER -->
+<section class="roadmap" id="roadmap">
+  <div class="section-head compact"><div><span class="kicker">THE PLAN</span><h2>ROADMAP</h2></div></div>
+  <div class="roadmap-grid">
+    <div><b>01</b><h3>Build the Arena</h3><p>Launch the core game and public leaderboard.</p></div>
+    <div><b>02</b><h3>Season 01</h3><p>Players compete for the 1,100 qualifying spots.</p></div>
+    <div><b>03</b><h3>NFT Mint</h3><p>Eligible players receive access to the CatShu mint.</p></div>
+    <div><b>04</b><h3>Community</h3><p>Expand game modes, events and CatShu experiences.</p></div>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="section-head compact"><div><span class="kicker">QUESTIONS</span><h2>FAQ</h2></div></div>
+  <div class="faq-list">
+    <details open><summary>How do I qualify?</summary><p>Play the available challenges and climb the season leaderboard. The current target is the top 1,100 positions.</p></details>
+    <details><summary>How many NFTs are in CatShu?</summary><p>The collection is planned at 1,111 NFTs.</p></details>
+    <details><summary>Can I play without a wallet?</summary><p>The first game prototype can be played without connecting a wallet. Wallet and eligibility verification can be added when the backend is ready.</p></details>
+  </div>
+</section>
+
+<section class="cta">
+  <span class="kicker">YOUR PLACE STARTS HERE</span>
+  <h2>READY TO ENTER THE ARENA?</h2>
+  <p>Play today. Be part of tomorrow.</p>
+  <button class="btn primary" data-play>🎮 Enter the Arena →</button>
+</section>
+</main>
+
 <footer>
-
-    <div class="container footer-inner">
-
-        <div class="footer-logo">
-            🐱 CATSHU
-        </div>
-
-        <div>
-            PLAY • COMPETE • EARN
-        </div>
-
-    </div>
-
+  <div class="footer-brand"><span class="brand-word">Cat<span>Shu</span></span><small>PLAY • COMPETE • EARN</small></div>
+  <div class="socials"><a href="#">𝕏</a><a href="#">◉</a><a href="#">◎</a><a href="#">▶</a><a href="#">♪</a></div>
+  <p>© 2026 CatShu. Built for the community.</p>
+  <a class="discord" href="#">💬 Join Discord</a>
 </footer>
 
-
-<!-- GAME MODAL -->
-<div class="modal" id="gameModal">
-
-    <div class="game-box">
-
-        <button class="close" onclick="closeGame()">
-            ×
-        </button>
-
-        <div class="game-header">
-
-            <div class="game-stat">
-                <span>TIME</span>
-                <strong id="time">30</strong>
-            </div>
-
-            <div class="game-stat">
-                <span>SCORE</span>
-                <strong id="score">0</strong>
-            </div>
-
-            <div class="game-stat">
-                <span>COMBO</span>
-                <strong id="combo">0</strong>
-            </div>
-
-            <div class="game-stat">
-                <span>BEST</span>
-                <strong id="best">0</strong>
-            </div>
-
-        </div>
-
-
-        <div class="game-area" id="gameArea">
-
-            <div class="start-screen" id="startScreen">
-
-                <h2>CATSHU REACTION</h2>
-
-                <p>
-                    Click the CatShu as fast as you can.
-                </p>
-
-                <button class="btn btn-primary"
-                        onclick="startGame()">
-                    START
-                </button>
-
-            </div>
-
-        </div>
-
+<div class="game-modal" id="gameModal">
+  <div class="game-window">
+    <button class="game-close" id="gameClose">×</button>
+    <div class="game-top">
+      <div><small>TIME</small><b id="gTime">30</b></div>
+      <div><small>SCORE</small><b id="gScore">0</b></div>
+      <div><small>COMBO</small><b id="gCombo">0</b></div>
+      <div><small>BEST</small><b id="gBest">0</b></div>
     </div>
-
+    <div class="game-area" id="gameArea">
+      <div class="game-start" id="gameStart">
+        <img src="assets/cat-gold.png" alt="">
+        <h2>CATSHU REACTION</h2>
+        <p>Click the CatShu as fast as you can.</p>
+        <button class="btn primary" id="startGame">START GAME</button>
+      </div>
+    </div>
+  </div>
 </div>
 
-
-<script>
-
-/* =========================
-   WALLET
-========================= */
-
-function connectWallet(){
-
-    if(typeof window.ethereum === "undefined"){
-
-        alert(
-            "No Web3 wallet detected.\n\n" +
-            "Wallet connection will be enabled when we add Web3 support."
-        );
-
-        return;
-    }
-
-    window.ethereum.request({
-        method:"eth_requestAccounts"
-    })
-    .then(function(accounts){
-
-        if(accounts.length){
-
-            document.querySelector(".wallet").innerText =
-                accounts[0].slice(0,6) +
-                "..." +
-                accounts[0].slice(-4);
-
-        }
-
-    });
-
-}
-
-
-/* =========================
-   GAME
-========================= */
-
-let gameRunning = false;
-let gameScore = 0;
-let gameCombo = 0;
-let gameTime = 30;
-let timer = null;
-
-let bestScore =
-    Number(localStorage.getItem("catshuBest") || 0);
-
-document.getElementById("best").innerText = bestScore;
-
-
-function openGame(){
-
-    document
-        .getElementById("gameModal")
-        .classList.add("active");
-
-}
-
-
-function closeGame(){
-
-    document
-        .getElementById("gameModal")
-        .classList.remove("active");
-
-    stopGame();
-
-}
-
-
-function startGame(){
-
-    stopGame();
-
-    gameRunning = true;
-    gameScore = 0;
-    gameCombo = 0;
-    gameTime = 30;
-
-    updateGameUI();
-
-    document
-        .getElementById("startScreen")
-        .style.display = "none";
-
-    createTarget();
-
-    timer = setInterval(function(){
-
-        gameTime--;
-
-        updateGameUI();
-
-        if(gameTime <= 0){
-
-            finishGame();
-
-        }
-
-    },1000);
-
-}
-
-
-function stopGame(){
-
-    gameRunning = false;
-
-    if(timer){
-
-        clearInterval(timer);
-        timer = null;
-
-    }
-
-}
-
-
-function finishGame(){
-
-    stopGame();
-
-    if(gameScore > bestScore){
-
-        bestScore = gameScore;
-
-        localStorage.setItem(
-            "catshuBest",
-            bestScore
-        );
-
-    }
-
-    document.getElementById("best").innerText =
-        bestScore;
-
-    document.getElementById("startScreen").style.display =
-        "flex";
-
-    document.getElementById("startScreen").innerHTML = `
-
-        <h2>TIME'S UP!</h2>
-
-        <p>
-            Your score:
-            <strong style="color:#ffd429">
-                ${gameScore}
-            </strong>
-        </p>
-
-        <button class="btn btn-primary"
-                onclick="startGame()">
-            PLAY AGAIN
-        </button>
-
-    `;
-
-}
-
-
-function updateGameUI(){
-
-    document.getElementById("time").innerText =
-        gameTime;
-
-    document.getElementById("score").innerText =
-        gameScore;
-
-    document.getElementById("combo").innerText =
-        gameCombo;
-
-    document.getElementById("best").innerText =
-        bestScore;
-
-}
-
-
-function createTarget(){
-
-    const area =
-        document.getElementById("gameArea");
-
-    const old =
-        document.querySelector(".game-target");
-
-    if(old){
-        old.remove();
-    }
-
-    const target =
-        document.createElement("div");
-
-    target.className =
-        "game-target";
-
-    target.innerHTML =
-        "🐱";
-
-    const maxX =
-        area.clientWidth - 150;
-
-    const maxY =
-        area.clientHeight - 150;
-
-    target.style.left =
-        Math.max(15,Math.random()*maxX) + "px";
-
-    target.style.top =
-        Math.max(15,Math.random()*maxY) + "px";
-
-    target.onclick = function(){
-
-        if(!gameRunning) return;
-
-        gameCombo++;
-
-        gameScore +=
-            100 +
-            (gameCombo * 10);
-
-        updateGameUI();
-
-        createTarget();
-
-    };
-
-    area.appendChild(target);
-
-}
-
-
-/* close game when clicking outside */
-
-document
-    .getElementById("gameModal")
-    .addEventListener("click",function(e){
-
-        if(e.target === this){
-
-            closeGame();
-
-        }
-
-    });
-
-</script>
-
+<script src="main.js"></script>
 </body>
 </html>
