@@ -3,79 +3,48 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>CatShu Runner V2</title>
+<title>CatShu 3D Runner</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div id="app">
-  <canvas id="game"></canvas>
+<div id="game"></div>
 
-  <div class="vignette"></div>
-  <div class="topbar">
-    <button class="icon-btn" id="pauseBtn">Ⅱ</button>
-    <div class="stat"><span class="label">SCORE</span><b id="score">0</b></div>
-    <div class="stat"><span class="label">DISTANCE</span><b><span id="distance">0</span>m</b></div>
-    <div class="stat"><span class="label">COMBO</span><b id="combo">x1</b></div>
-    <div class="stat best"><span class="label">BEST</span><b id="best">0</b></div>
-  </div>
-
-  <div class="powerbar">
-    <div class="power-icon">⚡</div>
-    <div class="power-track"><div id="powerFill"></div></div>
-    <span>DASH</span>
-  </div>
-
-  <div class="controls">
-    <button class="ctrl" id="leftBtn">‹</button>
-    <button class="ctrl jump" id="jumpBtn">↑<small>JUMP</small></button>
-    <button class="ctrl slide" id="slideBtn">↓<small>SLIDE</small></button>
-    <button class="ctrl" id="rightBtn">›</button>
-  </div>
-
-  <div class="screen" id="menu">
-    <div class="brand"><span>♛</span> CATSHU <small>RUNNER</small></div>
-    <p>RUN · COLLECT · EXPLORE</p>
-    <div class="hero-cat">
-      <div class="back-cat preview"><i></i><em></em><strong>♛</strong></div>
-    </div>
-    <button class="gold-btn" id="playBtn">▶ PLAY</button>
-    <button class="dark-btn" id="charsBtn">🐾 CHARACTERS</button>
-    <div class="hint">Swipe / arrows to move · ↑ jump · ↓ slide</div>
-  </div>
-
-  <div class="screen hidden" id="chars">
-    <div class="panel">
-      <button class="close" id="closeChars">×</button>
-      <h2>CHOOSE YOUR CATSHU</h2>
-      <div class="cats" id="cats"></div>
-      <div class="selected-name" id="selectedName">Snow King</div>
-      <button class="gold-btn" id="selectBtn">SELECT</button>
-    </div>
-  </div>
-
-  <div class="screen hidden" id="pause">
-    <div class="panel small">
-      <h2>PAUSED</h2>
-      <button class="gold-btn" id="resumeBtn">▶ RESUME</button>
-      <button class="dark-btn" id="restartBtn">↻ RESTART</button>
-      <button class="dark-btn" id="menuBtn">⌂ MAIN MENU</button>
-    </div>
-  </div>
-
-  <div class="screen hidden" id="gameover">
-    <div class="panel result">
-      <div class="over">RUN ENDED</div>
-      <h2 id="finalScore">0</h2>
-      <div class="result-grid">
-        <div><span>DISTANCE</span><b id="finalDistance">0m</b></div>
-        <div><span>STARS</span><b id="finalStars">0</b></div>
-        <div><span>BEST</span><b id="finalBest">0</b></div>
-      </div>
-      <button class="gold-btn" id="againBtn">↻ TRY AGAIN</button>
-      <button class="dark-btn" id="backBtn">⌂ MAIN MENU</button>
-    </div>
+<div id="hud">
+  <div class="brand">♛ CATSHU <span>RUNNER</span></div>
+  <div class="stats">
+    <div><small>SCORE</small><b id="score">0</b></div>
+    <div><small>DISTANCE</small><b id="distance">0m</b></div>
+    <button id="pause">Ⅱ</button>
   </div>
 </div>
-<script src="main.js"></script>
+
+<div id="menu" class="overlay">
+  <div class="card">
+    <div class="eyebrow">CATSHU CITY • 3D PROTOTYPE</div>
+    <h1>RUN<br><span>THE CITY</span></h1>
+    <p>A third-person endless runner prototype. Three lanes, real 3D camera, city blocks and a rear-view CatShu runner.</p>
+    <button id="start">▶ START RUN</button>
+    <div class="help">← → CHANGE LANE &nbsp; • &nbsp; ↑ JUMP &nbsp; • &nbsp; ↓ SLIDE</div>
+  </div>
+</div>
+
+<div id="gameover" class="overlay hidden">
+  <div class="card">
+    <div class="eyebrow">RUN ENDED</div>
+    <h2 id="finalScore">0</h2>
+    <p><span id="finalDistance">0</span> meters through CatShu City</p>
+    <button id="again">↻ RUN AGAIN</button>
+    <button class="secondary" id="home">⌂ MAIN MENU</button>
+  </div>
+</div>
+
+<div id="mobile">
+  <button data-a="left">‹</button>
+  <button data-a="jump">↑</button>
+  <button data-a="right">›</button>
+  <button data-a="slide">↓</button>
+</div>
+
+<script type="module" src="main.js"></script>
 </body>
 </html>

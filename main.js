@@ -1,128 +1,172 @@
-const canvas=document.getElementById('game'),ctx=canvas.getContext('2d');
-let W=innerWidth,H=innerHeight,DPR=Math.min(devicePixelRatio||1,2);
-function resize(){W=innerWidth;H=innerHeight;canvas.width=W*DPR;canvas.height=H*DPR;ctx.setTransform(DPR,0,0,DPR,0,0)}addEventListener('resize',resize);resize();
+import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.166.1/build/three.module.js";
 
-const catFiles=['cat-white.png','cat-black.png','cat-pink.png','cat-gold.png','cat-brown.png','cat-gray.png','cat-red.png','cat-cream.png'];
-const catNames=['Snow King','Shadow','Rose','Golden','Cocoa','Steel','Inferno','Cream'];
-let selected=0, running=false, paused=false, over=false, lane=1, targetLane=1, jump=0, slide=0, speed=0.46, distance=0, score=0, stars=0, combo=1, power=25, best=+localStorage.getItem('catshuBestV2')||0;
-document.getElementById('best').textContent=best;
+const mount=document.getElementById("game");
+const scene=new THREE.Scene();
+scene.background=new THREE.Color(0x08091d);
+scene.fog=new THREE.FogExp2(0x11122f,0.018);
 
-const imgs=catFiles.map(f=>{const i=new Image();i.src='assets/'+f;return i});
-const menu=document.getElementById('menu'), chars=document.getElementById('chars'), pause=document.getElementById('pause'), gameover=document.getElementById('gameover');
-const scoreEl=document.getElementById('score'),distEl=document.getElementById('distance'),comboEl=document.getElementById('combo'),powerFill=document.getElementById('powerFill');
+const camera=new THREE.PerspectiveCamera(60,innerWidth/innerHeight,.1,300);
+camera.position.set(0,4.2,9);
+const renderer=new THREE.WebGLRenderer({antialias:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.setSize(innerWidth,innerHeight);
+renderer.shadowMap.enabled=true;
+renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+renderer.outputColorSpace=THREE.SRGBColorSpace;
+mount.appendChild(renderer.domElement);
 
-function show(x){[menu,chars,pause,gameover].forEach(s=>s.classList.add('hidden'));x.classList.remove('hidden')}
-function populateCats(){const c=document.getElementById('cats');c.innerHTML='';catFiles.forEach((f,i)=>{const d=document.createElement('button');d.className='cat-card'+(i===selected?' selected':'');d.innerHTML=`<img src="assets/${f}">`;d.onclick=()=>{selected=i;document.getElementById('selectedName').textContent=catNames[i];populateCats()};c.appendChild(d)})}
-populateCats();
+scene.add(new THREE.HemisphereLight(0x9ba9ff,0x161020,2.2));
+const moon=new THREE.DirectionalLight(0xffe7c2,3.0);
+moon.position.set(-10,18,10); moon.castShadow=true; scene.add(moon);
+const fill=new THREE.PointLight(0x704dff,25,60); fill.position.set(0,8,-18); scene.add(fill);
 
-document.getElementById('charsBtn').onclick=()=>{populateCats();show(chars)}
-document.getElementById('closeChars').onclick=()=>show(menu);
-document.getElementById('selectBtn').onclick=()=>show(menu);
-document.getElementById('playBtn').onclick=start;
-document.getElementById('pauseBtn').onclick=()=>{if(running){paused=true;show(pause)}};
-document.getElementById('resumeBtn').onclick=()=>{paused=false;showGame()};
-document.getElementById('restartBtn').onclick=start;
-document.getElementById('againBtn').onclick=start;
-document.getElementById('backBtn').onclick=()=>{running=false;show(menu)};
-document.getElementById('menuBtn').onclick=()=>{running=false;show(menu)};
+const world=new THREE.Group(); scene.add(world);
+const road=new THREE.Group(); world.add(road);
+const city=new THREE.Group(); world.add(city);
 
-let obstacles=[], collectibles=[], particles=[], spawnT=0, starT=0, last=performance.now();
+function mat(c,rough=.7,metal=0){return new THREE.MeshStandardMaterial({color:c,roughness:rough,metalness:metal})}
+const roadMat=mat(0x24213a,.9), laneMat=mat(0xf0c85b,.45,0.1), buildingMats=[0x17172e,0x211a3b,0x2b2046,0x131a35];
 
-function start(){running=true;paused=false;over=false;lane=1;targetLane=1;jump=0;slide=0;speed=.46;distance=0;score=0;stars=0;combo=1;power=25;obstacles=[];collectibles=[];particles=[];showGame()}
-function showGame(){[menu,chars,pause,gameover].forEach(s=>s.classList.add('hidden'))}
+const roadGeo=new THREE.BoxGeometry(10,.35,240);
+const roadMesh=new THREE.Mesh(roadGeo,roadMat); roadMesh.position.set(0,-.2,-85); roadMesh.receiveShadow=true; road.add(roadMesh);
 
-function laneX(l,z){const horizon=H*.29, bottom=H*.86;const t=Math.pow(1-z,0.92);const center=W/2;const spread=(W*.46)*t;return center+(l-1)*spread}
-function roadY(z){return H*.29+(H*.67)*Math.pow(1-z,1.7)}
-function roadWidth(z){return W*.12+(W*.82)*Math.pow(1-z,1.2)}
-
-function spawnObstacle(){
-  const l=Math.floor(Math.random()*3), kind=Math.random();
-  obstacles.push({lane:l,z:1.08,kind:kind<.34?'crate':kind<.67?'barrier':'gate',w:.13});
+for(const x of [-1.66,1.66]){
+  const g=new THREE.BoxGeometry(.035,.025,240);
+  const m=new THREE.Mesh(g,laneMat);
+  m.position.set(x,-.015,-85); road.add(m);
 }
-function spawnStar(){
-  const l=Math.floor(Math.random()*3);
-  collectibles.push({lane:l,z:1.1,spin:Math.random()*6});
+for(let z=-5;z>-220;z-=10){
+  const strip=new THREE.Mesh(new THREE.BoxGeometry(7,.025,.12),laneMat);
+  strip.position.set(0,.015,z); road.add(strip);
 }
-function addBurst(x,y,n=8){
-  for(let i=0;i<n;i++)particles.push({x,y,vx:(Math.random()-.5)*5,vy:(Math.random()-.8)*5,life:1});
-}
-function move(dir){if(!running||paused)return;targetLane=Math.max(0,Math.min(2,targetLane+dir))}
-function doJump(){if(!running||paused||jump>0||slide>0)return;jump=.85}
-function doSlide(){if(!running||paused||jump>0)return;slide=.5}
 
-addEventListener('keydown',e=>{if(e.key==='ArrowLeft'||e.key==='a')move(-1);if(e.key==='ArrowRight'||e.key==='d')move(1);if(e.key==='ArrowUp'||e.key==='w'||e.code==='Space')doJump();if(e.key==='ArrowDown'||e.key==='s')doSlide();if(e.key==='Escape'&&running&&!paused){paused=true;show(pause)}});
-[['leftBtn',()=>move(-1)],['rightBtn',()=>move(1)],['jumpBtn',doJump],['slideBtn',doSlide]].forEach(([id,fn])=>document.getElementById(id).addEventListener('pointerdown',e=>{e.preventDefault();fn()}));
+function makeBuilding(x,z,w,h,d,color){
+  const b=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat(color,.86));
+  b.position.set(x,h/2-.05,z); b.castShadow=true;b.receiveShadow=true;city.add(b);
+  // warm windows
+  for(let yy=3;yy<h-1;yy+=3){
+    for(let xx=-w/2+1;xx<w/2-1;xx+=2.2){
+      const win=new THREE.Mesh(new THREE.BoxGeometry(.65,.85,.04),mat(Math.random()<.62?0xffc96a:0x36427a,.35));
+      win.position.set(x+xx,yy,z-d/2-.025);city.add(win);
+    }
+  }
+}
+for(let z=-5;z>-230;z-=10){
+  const h1=5+Math.random()*11,h2=5+Math.random()*14;
+  makeBuilding(-7.5-Math.random()*2,z,4,h1,8,buildingMats[Math.floor(Math.random()*buildingMats.length)]);
+  makeBuilding(7.5+Math.random()*2,z-4,4,h2,8,buildingMats[Math.floor(Math.random()*buildingMats.length)]);
+}
 
-let sx=0,sy=0;
-canvas.addEventListener('touchstart',e=>{const t=e.changedTouches[0];sx=t.clientX;sy=t.clientY},{passive:true});
-canvas.addEventListener('touchend',e=>{const t=e.changedTouches[0],dx=t.clientX-sx,dy=t.clientY-sy;if(Math.max(Math.abs(dx),Math.abs(dy))<25)return;if(Math.abs(dx)>Math.abs(dy))move(dx>0?1:-1);else dy<0?doJump():doSlide()},{passive:true});
+function makeLantern(x,z){
+  const pole=new THREE.Mesh(new THREE.CylinderGeometry(.07,.1,2.7,8),mat(0x4b3040));
+  pole.position.set(x,1.35,z); city.add(pole);
+  const glow=new THREE.Mesh(new THREE.SphereGeometry(.25,12,12),new THREE.MeshStandardMaterial({color:0xffb13b,emissive:0xff7a12,emissiveIntensity:4}));
+  glow.position.set(x,2.65,z);city.add(glow);
+  const light=new THREE.PointLight(0xffa52f,3,8);light.position.copy(glow.position);city.add(light);
+}
+for(let z=-6;z>-220;z-=12){makeLantern(-4.5,z);makeLantern(4.5,z-5)}
 
-function drawSky(t){
-  const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'#171443');g.addColorStop(.48,'#44205e');g.addColorStop(1,'#080817');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
-  ctx.globalAlpha=.25;for(let i=0;i<8;i++){ctx.fillStyle=i%2?'#ff9ed8':'#9a7cff';ctx.beginPath();ctx.arc((i*173+t*.02)%W,H*.22+(i%3)*35,40+i*6,0,7);ctx.fill()}ctx.globalAlpha=1;
-  ctx.fillStyle='#eee7c8';ctx.beginPath();ctx.arc(W*.82,H*.15,42,0,7);ctx.fill();ctx.fillStyle='#171443';ctx.beginPath();ctx.arc(W*.84,H*.135,42,0,7);ctx.fill();
-  // distant pagodas
-  for(let i=0;i<8;i++){let x=i*W/7+(i%2)*25;let y=H*.3-(i%3)*18;ctx.fillStyle='#111126';ctx.fillRect(x-25,y,50,H*.25);ctx.fillStyle='#c66c94';ctx.beginPath();ctx.moveTo(x-42,y);ctx.lineTo(x,y-22);ctx.lineTo(x+42,y);ctx.closePath();ctx.fill()}
+function makeGate(z){
+  const g=new THREE.Group();
+  const red=mat(0x7c224e), gold=mat(0xe6b84b,.35,0.5);
+  for(const x of [-3.2,3.2]){const p=new THREE.Mesh(new THREE.BoxGeometry(.45,5,.45),red);p.position.set(x,2.5,z);g.add(p)}
+  const top=new THREE.Mesh(new THREE.BoxGeometry(7.1,.5,.5),red);top.position.set(0,5,z);g.add(top);
+  const sign=new THREE.Mesh(new THREE.BoxGeometry(2.6,.8,.12),gold);sign.position.set(0,4.2,z-.3);g.add(sign);
+  city.add(g);
 }
-function drawRoad(){
-  const horizon=H*.29, leftTop=W*.46,rightTop=W*.54,leftBot=W*.04,rightBot=W*.96;
-  const grd=ctx.createLinearGradient(0,horizon,0,H);grd.addColorStop(0,'#2a2143');grd.addColorStop(1,'#11101b');
-  ctx.fillStyle=grd;ctx.beginPath();ctx.moveTo(leftTop,horizon);ctx.lineTo(rightTop,horizon);ctx.lineTo(rightBot,H);ctx.lineTo(leftBot,H);ctx.closePath();ctx.fill();
-  for(let l=0;l<2;l++){ctx.strokeStyle='#ffd65a44';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(W*(.46+l*.08),horizon);ctx.lineTo(W*(.04+l*.92/2),H);ctx.stroke()}
-  for(let i=0;i<14;i++){let z=i/14, y=roadY(z);let w=roadWidth(z);ctx.strokeStyle=`rgba(255,214,90,${.07+.18*(1-z)})`;ctx.beginPath();ctx.moveTo(W/2-w*.48,y);ctx.lineTo(W/2+w*.48,y);ctx.stroke()}
-  // gate
-  ctx.fillStyle='#9a214f';ctx.fillRect(W*.44,H*.22,10,H*.13);ctx.fillRect(W*.55,H*.22,10,H*.13);ctx.fillRect(W*.425,H*.22,W*.15,14);ctx.fillStyle='#ffd65a';ctx.font='900 13px system-ui';ctx.textAlign='center';ctx.fillText('CATSHU',W/2,H*.25);
-}
-function drawObject(o){
-  const x=laneX(o.lane,o.z), y=roadY(o.z), s=.18+(1-o.z)*1.7;
-  if(o.kind==='crate'){ctx.fillStyle='#5c3b28';ctx.strokeStyle='#e0a84a';ctx.lineWidth=3;ctx.fillRect(x-32*s,y-44*s,64*s,44*s);ctx.strokeRect(x-32*s,y-44*s,64*s,44*s);ctx.strokeStyle='#c9883a';ctx.beginPath();ctx.moveTo(x-28*s,y-40*s);ctx.lineTo(x+28*s,y-4*s);ctx.moveTo(x+28*s,y-40*s);ctx.lineTo(x-28*s,y-4*s);ctx.stroke()}
-  else if(o.kind==='barrier'){ctx.fillStyle='#e33e52';ctx.fillRect(x-42*s,y-26*s,84*s,26*s);ctx.fillStyle='#fff';for(let k=-30;k<35;k+=25){ctx.save();ctx.translate(x+k*s,y-26*s);ctx.rotate(-.65);ctx.fillRect(0,0,8*s,26*s);ctx.restore()}}
-  else{ctx.fillStyle='#33253b';ctx.fillRect(x-50*s,y-80*s,100*s,80*s);ctx.fillStyle='#ffb83d';ctx.fillRect(x-58*s,y-86*s,116*s,8*s)}
-}
-function drawStar(c){
-  const x=laneX(c.lane,c.z),y=roadY(c.z)-50*Math.pow(1-c.z,.7),s=8+(1-c.z)*34;
-  ctx.save();ctx.translate(x,y);ctx.rotate(c.spin);ctx.fillStyle='#ffd45c';ctx.shadowColor='#ffd45c';ctx.shadowBlur=18;ctx.beginPath();for(let i=0;i<10;i++){let a=-Math.PI/2+i*Math.PI/5,r=i%2?s:s*.42;ctx.lineTo(Math.cos(a)*r,Math.sin(a)*r)}ctx.closePath();ctx.fill();ctx.restore()
-}
-function drawPlayer(){
-  const x=laneX(lane,0), base=H*.79-jump*110;
-  // shadow
-  ctx.fillStyle='#0007';ctx.beginPath();ctx.ellipse(x,H*.86,55,14,0,0,7);ctx.fill();
+for(let z=-35;z>-220;z-=45)makeGate(z);
+
+function makeCat(){
+  const g=new THREE.Group();
+  const black=mat(0x0c0d17,.55), fur=mat(0xe9eaf3,.78), gold=mat(0xffd65c,.3,.6);
+  // body / hoodie
+  const body=new THREE.Mesh(new THREE.CapsuleGeometry(.72,1.25,8,16),black); body.position.y=1.55;body.scale.set(.9,1,0.7);body.castShadow=true;g.add(body);
+  // hood/head
+  const head=new THREE.Mesh(new THREE.SphereGeometry(.78,24,18),fur);head.position.y=2.8;head.scale.set(1,.9,.85);head.castShadow=true;g.add(head);
+  // ears
+  for(const x of [-.48,.48]){
+    const ear=new THREE.Mesh(new THREE.ConeGeometry(.38,.8,4),fur);ear.position.set(x,3.45,0);ear.rotation.z=x<0?-0.35:0.35;ear.castShadow=true;g.add(ear);
+  }
+  // crown emblem on back
+  const crown=new THREE.Mesh(new THREE.BoxGeometry(.52,.18,.04),gold);crown.position.set(0,1.65,.67);g.add(crown);
+  for(let i=-1;i<=1;i++){const p=new THREE.Mesh(new THREE.ConeGeometry(.07,.28,4),gold);p.position.set(i*.16,1.83,.67);g.add(p)}
   // tail
-  ctx.strokeStyle='#d8d8e1';ctx.lineWidth=22;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(x+35,base-70);ctx.bezierCurveTo(x+90,base-100,x+95,base-20,x+45,base-12);ctx.stroke();
+  const tail=new THREE.Mesh(new THREE.TorusGeometry(.58,.16,10,20,Math.PI*1.35),fur);tail.position.set(.7,1.55,.15);tail.rotation.y=-.8;tail.rotation.z=.15;tail.castShadow=true;g.add(tail);
   // legs
-  const step=Math.sin(performance.now()/85)*9;
-  ctx.fillStyle='#16151e';ctx.fillRect(x-32,base-8+step,25,58);ctx.fillRect(x+7,base-8-step,25,58);
-  // body hoodie
-  ctx.fillStyle='#0e0d16';ctx.beginPath();ctx.roundRect(x-52,base-125,104,130,30);ctx.fill();
-  ctx.strokeStyle='#d7a43c';ctx.lineWidth=3;ctx.stroke();
-  // crown logo
-  ctx.fillStyle='#ffd65a';ctx.font='bold 34px serif';ctx.textAlign='center';ctx.fillText('♛',x,base-60);
-  // head/ears from behind
-  ctx.fillStyle='#ececf4';ctx.beginPath();ctx.moveTo(x-48,base-118);ctx.lineTo(x-38,base-182);ctx.lineTo(x-8,base-145);ctx.lineTo(x+8,base-145);ctx.lineTo(x+38,base-182);ctx.lineTo(x+48,base-118);ctx.quadraticCurveTo(x+45,base-80,x,base-78);ctx.quadraticCurveTo(x-45,base-80,x-48,base-118);ctx.fill();
-  ctx.fillStyle='#aaaab7';ctx.beginPath();ctx.moveTo(x-38,base-169);ctx.lineTo(x-31,base-145);ctx.lineTo(x-12,base-150);ctx.closePath();ctx.fill();ctx.beginPath();ctx.moveTo(x+38,base-169);ctx.lineTo(x+31,base-145);ctx.lineTo(x+12,base-150);ctx.closePath();ctx.fill();
+  for(const x of [-.3,.3]){
+    const leg=new THREE.Mesh(new THREE.CapsuleGeometry(.19,.8,6,10),black);leg.position.set(x,0.62,.02);leg.castShadow=true;g.add(leg);
+  }
+  return g;
 }
+const player=makeCat(); player.position.set(0,0,4); world.add(player);
+
+let lane=1,targetLane=1,vy=0,jump=0,running=false,last=performance.now(),distance=0,score=0,speed=9;
+let obstacles=[];
+function makeObstacle(laneIndex,z){
+  const g=new THREE.Group();
+  const base=mat(0x6b3a2c), stripe=mat(0xe04a51);
+  const box=new THREE.Mesh(new THREE.BoxGeometry(1.25,1.1,1.0),base);box.position.y=.55;box.castShadow=true;g.add(box);
+  const s=new THREE.Mesh(new THREE.BoxGeometry(1.3,.18,1.04),stripe);s.position.y=.85;g.add(s);
+  g.position.set((laneIndex-1)*2.2,0,z);world.add(g);return g;
+}
+function spawn(){const l=Math.floor(Math.random()*3);obstacles.push({mesh:makeObstacle(l, -75),lane:l,z:-75})}
+
+function start(){
+  running=true;distance=0;score=0;speed=9;lane=1;targetLane=1;jump=0;vy=0;
+  obstacles.forEach(o=>world.remove(o.mesh));obstacles=[];spawn();
+  document.getElementById("menu").classList.add("hidden");document.getElementById("gameover").classList.add("hidden");
+}
+function end(){
+  running=false;
+  document.getElementById("finalScore").textContent=Math.floor(score).toLocaleString();
+  document.getElementById("finalDistance").textContent=Math.floor(distance).toLocaleString();
+  document.getElementById("gameover").classList.remove("hidden");
+}
+function action(a){
+  if(!running)return;
+  if(a==="left")targetLane=Math.max(0,targetLane-1);
+  if(a==="right")targetLane=Math.min(2,targetLane+1);
+  if(a==="jump"&&player.position.y<=.02){vy=8.2}
+}
+addEventListener("keydown",e=>{
+  if(e.key==="ArrowLeft"||e.key==="a")action("left");
+  if(e.key==="ArrowRight"||e.key==="d")action("right");
+  if(e.key==="ArrowUp"||e.key==="w"||e.code==="Space")action("jump");
+});
+document.getElementById("start").onclick=start;
+document.getElementById("again").onclick=start;
+document.getElementById("home").onclick=()=>{running=false;document.getElementById("gameover").classList.add("hidden");document.getElementById("menu").classList.remove("hidden")};
+
+let touchX=0,touchY=0;
+renderer.domElement.addEventListener("touchstart",e=>{touchX=e.touches[0].clientX;touchY=e.touches[0].clientY},{passive:true});
+renderer.domElement.addEventListener("touchend",e=>{const t=e.changedTouches[0],dx=t.clientX-touchX,dy=t.clientY-touchY;if(Math.max(Math.abs(dx),Math.abs(dy))<30)return;if(Math.abs(dx)>Math.abs(dy))action(dx>0?"right":"left");else if(dy<0)action("jump")},{passive:true});
+document.querySelectorAll("#mobile button").forEach(b=>b.onclick=()=>action(b.dataset.a));
+
 function update(dt){
-  if(!running||paused)return;
-  speed=Math.min(.86,speed+dt*.006);distance+=speed*dt*62;score+=Math.floor(speed*dt*115);combo=Math.min(99,1+Math.floor(distance/220));
-  lane+=(targetLane-lane)*Math.min(1,dt*12);
-  if(jump>0)jump=Math.max(0,jump-dt*1.55); if(slide>0)slide=Math.max(0,slide-dt);
-  spawnT-=dt;starT-=dt;if(spawnT<=0){spawnObstacle();spawnT=Math.max(.34,1.0-speed*.65+Math.random()*.35)}if(starT<=0){spawnStar();starT=.35+Math.random()*.45}
-  power=Math.min(100,power+dt*3);
-  for(const o of obstacles)o.z-=speed*dt;
-  for(const c of collectibles){c.z-=speed*dt;c.spin+=dt*5}
-  // collision
-  for(let i=obstacles.length-1;i>=0;i--){const o=obstacles[i];if(o.z<.08){obstacles.splice(i,1);continue}if(o.z<.18&&Math.abs(o.lane-Math.round(lane))<.45){let safe=jump>0.25 || slide>0.18&&o.kind==='gate';if(!safe){endGame();return}}}
-  for(let i=collectibles.length-1;i>=0;i--){const c=collectibles[i];if(c.z<.15){collectibles.splice(i,1);continue}if(c.z<.18&&Math.abs(c.lane-Math.round(lane))<.5){collectibles.splice(i,1);stars++;score+=250*combo;power=Math.min(100,power+12);addBurst(laneX(c.lane,c.z),roadY(c.z)-30,12)}}
-  for(let i=particles.length-1;i>=0;i--){let p=particles[i];p.x+=p.vx;p.vy+=.12;p.y+=p.vy;p.life-=dt*2;if(p.life<=0)particles.splice(i,1)}
-  scoreEl.textContent=Math.floor(score).toLocaleString();distEl.textContent=Math.floor(distance).toLocaleString();comboEl.textContent='x'+combo;powerFill.style.width=power+'%';
+ if(!running)return;
+ speed=Math.min(20,speed+dt*.55);
+ distance+=speed*dt;score+=speed*dt*10;
+ player.position.x=THREE.MathUtils.lerp(player.position.x,(targetLane-1)*2.2,1-Math.pow(.001,dt));
+ player.rotation.y=Math.sin(performance.now()*.006)*.035;
+ vy-=20*dt;player.position.y=Math.max(0,player.position.y+vy*dt);if(player.position.y===0)vy=0;
+ for(const o of obstacles){o.z+=speed*dt;o.mesh.position.z=o.z}
+ obstacles=obstacles.filter(o=>o.z<12);
+ if(!obstacles.length||obstacles[obstacles.length-1].z>-48)spawn();
+ for(const o of obstacles){
+   if(Math.abs(o.z-player.position.z)<1.0&&Math.abs(o.mesh.position.x-player.position.x)<.85&&player.position.y<1.0){end();return}
+ }
+ camera.position.x=THREE.MathUtils.lerp(camera.position.x,player.position.x*.42,1-Math.pow(.001,dt));
+ camera.position.y=4.0+player.position.y*.18;camera.lookAt(player.position.x*.18,1.6,-8);
+ document.getElementById("score").textContent=Math.floor(score).toLocaleString();
+ document.getElementById("distance").textContent=Math.floor(distance)+"m";
 }
-function endGame(){running=false;over=true;let s=Math.floor(score);if(s>best){best=s;localStorage.setItem('catshuBestV2',best)}document.getElementById('finalScore').textContent=s.toLocaleString();document.getElementById('finalDistance').textContent=Math.floor(distance)+'m';document.getElementById('finalStars').textContent=stars;document.getElementById('finalBest').textContent=best.toLocaleString();show(gameover)}
-function draw(t){
-  drawSky(t);drawRoad();
-  [...obstacles].sort((a,b)=>b.z-a.z).forEach(drawObject);
-  [...collectibles].sort((a,b)=>b.z-a.z).forEach(drawStar);
-  drawPlayer();
-  particles.forEach(p=>{ctx.globalAlpha=p.life;ctx.fillStyle='#ffd65a';ctx.beginPath();ctx.arc(p.x,p.y,3,0,7);ctx.fill();ctx.globalAlpha=1});
+
+function animate(now){
+ requestAnimationFrame(animate);const dt=Math.min(.035,(now-last)/1000);last=now;
+ update(dt);
+ // city drift illusion: rotate a few lights subtly
+ renderer.render(scene,camera);
 }
-function loop(now){const dt=Math.min(.033,(now-last)/1000);last=now;update(dt);draw(now);requestAnimationFrame(loop)}requestAnimationFrame(loop);
-show(menu);
+requestAnimationFrame(animate);
+document.getElementById("pause").onclick=()=>{running=false;document.getElementById("menu").classList.remove("hidden");document.querySelector("#menu h1").innerHTML="PAUSED<br><span>CATSHU RUNNER</span>";document.getElementById("start").textContent="▶ RESUME";document.getElementById("start").onclick=()=>{running=true;document.getElementById("menu").classList.add("hidden")}};
+addEventListener("resize",()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,2))});
