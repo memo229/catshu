@@ -1,46 +1,102 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#050b18"><meta name="description" content="CatShu — Play. Compete. Earn.">
-<title>CatShu — Play • Compete • Earn</title><link rel="stylesheet" href="style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#050914">
+<title>CatShu — Play • Compete • Earn</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="site-bg"></div>
+<div class="bg"></div>
+
 <header class="nav">
-  <a class="brand" href="#home"><span class="brand-word">Cat<span>Shu</span></span><small>PLAY • COMPETE • EARN</small></a>
-  <nav class="links" id="navLinks">
-    <a class="active" href="#home">⌂ Home</a><a href="#play">🎮 Play</a><a href="#leaderboard">🏆 Leaderboard</a><a href="#collection">▣ NFT Collection</a><a href="#about">ⓘ About</a><a href="#roadmap">◈ Roadmap</a><a href="#faq">? FAQ</a>
+  <a class="brand" href="#home"><b>Cat<span>Shu</span></b><small>PLAY • COMPETE • EARN</small></a>
+  <nav>
+    <a href="#home">⌂ Home</a><a href="#play">🎮 Play</a><a href="#leaderboard">🏆 Leaderboard</a>
+    <a href="#collection">▣ NFT Collection</a><a href="#about">ⓘ About</a><a href="#roadmap">◈ Roadmap</a><a href="#faq">? FAQ</a>
   </nav>
-  <button class="wallet" id="walletBtn">▣ &nbsp; Connect Wallet</button><button class="hamburger" id="menuBtn">☰</button>
+  <button class="wallet" id="walletBtn">▣ Connect Wallet</button>
+  <button class="hamb" id="hamb">☰</button>
 </header>
+
 <main>
 <section class="hero" id="home">
- <div class="hero-copy"><div class="eyebrow">CATSHU GAME • SEASON 01</div><h1>MORE THAN<br>JUST <em>CATS</em><b>♛</b></h1>
- <p>Play. Compete. Earn your place in the CatShu universe.<br><strong>Top 1,100 players will qualify for the CatShu NFT mint.</strong></p>
- <div class="hero-actions"><button class="btn primary" data-play="reaction">🎮 Start Playing <span>→</span></button><a class="btn secondary" href="#leaderboard">🏆 View Leaderboard</a></div>
- <div class="hero-tagline">A STRONGER COMMUNITY. <span>A BRIGHTER TOMORROW.</span></div></div>
- <div class="hero-art"><div class="moon"></div><div class="gate"></div><div class="banner b1">♛<strong>PLAY</strong></div><div class="banner b2">♛<strong>COMPETE</strong></div><div class="banner b3">♛<strong>EARN</strong></div><div class="banner b4">♛<strong>BELONG</strong></div><div class="castle-sign">♛<strong>CATSHU</strong><span>LEGENDS PLAY HERE.</span></div>
- <div class="hero-cat black"><img src="/catshu/assets/cat-black.png" alt="Black CatShu"></div><div class="hero-cat gold"><img src="/catshu/assets/cat-gold.png" alt="Gold CatShu"></div><div class="hero-cat white"><img src="/catshu/assets/cat-white.png" alt="White CatShu"></div><div class="hero-cat pink"><img src="/catshu/assets/cat-pink.png" alt="Pink CatShu"></div><div class="hero-phrase">LEGENDS<br><b>PLAY HERE</b></div></div>
+  <div class="hero-copy">
+    <label>CATSHU GAME • SEASON 01</label>
+    <h1>MORE THAN<br>JUST <em>CATS</em><i>♛</i></h1>
+    <p>Play. Compete. Earn your place in the CatShu universe.<br><strong>Top 1,100 players will qualify for the CatShu NFT mint.</strong></p>
+    <div class="actions"><button class="btn gold" data-open-game>🎮 Start Playing →</button><a class="btn blue" href="#leaderboard">🏆 View Leaderboard</a></div>
+    <small class="tagline">A STRONGER COMMUNITY. <span>A BRIGHTER TOMORROW.</span></small>
+  </div>
+  <div class="hero-scene">
+    <div class="moon"></div><div class="gate">♛</div>
+    <div class="tower t1"><b>♛</b><span>PLAY</span></div><div class="tower t2"><b>♛</b><span>COMPETE</span></div>
+    <div class="tower t3"><b>♛</b><span>EARN</span></div><div class="tower t4"><b>♛</b><span>BELONG</span></div>
+    <div class="sign">LEGENDS<br><strong>PLAY HERE</strong></div>
+    <img class="hero-cat c1" src="assets/cat-black.png" alt="Black CatShu">
+    <img class="hero-cat c2" src="assets/cat-gold.png" alt="Gold CatShu">
+    <img class="hero-cat c3" src="assets/cat-white.png" alt="White CatShu">
+    <img class="hero-cat c4" src="assets/cat-pink.png" alt="Pink CatShu">
+  </div>
 </section>
-<section class="stats"><div class="stat"><b>👥</b><strong>12,487</strong><span>Players</span></div><div class="stat"><b>🏆</b><strong>1,100</strong><span>NFT Qualification Slots</span></div><div class="stat"><b>🎮</b><strong>4</strong><span>Game Modes</span></div><div class="stat"><b>⚔</b><strong>SEASON 01</strong><span>Live Competition</span></div></section>
-<section id="play" class="section"><div class="section-head"><div><span class="kicker">THE ARENA</span><h2>GAME MODES</h2><p>Choose your challenge. Your performance determines your rank.</p></div><button class="how" id="howBtn">HOW IT WORKS? →</button></div>
- <div class="mode-grid">
-  <article class="mode reaction"><div class="mode-art"><img src="/catshu/assets/cat-gold.png" alt=""></div><div class="mode-body"><h3>⚡ REACTION</h3><p>Click fast. Stay sharp. Build your combo.</p><button class="play-mode" data-play="reaction">Play Now →</button></div></article>
-  <article class="mode memory"><div class="mode-art"><img src="/catshu/assets/cat-white.png" alt=""></div><div class="mode-body"><h3>🧠 MEMORY</h3><p>Remember the order. Repeat it perfectly.</p><button class="play-mode" data-play="memory">Play Now →</button></div></article>
-  <article class="mode dodge"><div class="mode-art"><img src="/catshu/assets/cat-black.png" alt=""></div><div class="mode-body"><h3>💨 DODGE</h3><p>Move, survive and collect as many points as possible.</p><button class="play-mode" data-play="dodge">Play Now →</button></div></article>
-  <article class="mode final"><div class="mode-art"><img src="/catshu/assets/cat-pink.png" alt=""></div><div class="mode-body"><h3>👑 FINAL CHALLENGE</h3><p>All skills. One legend. The ultimate score.</p><button class="play-mode" data-play="final">Play Now →</button></div></article>
- </div></section>
-<section class="section" id="leaderboard"><div class="section-head"><div><span class="kicker">SEASON 01</span><h2>LIVE LEADERBOARD</h2><p>Every score counts. The qualifying line is #1,100.</p></div><span class="live">● LIVE</span></div>
- <div class="leader-layout"><div class="table"><div class="row head"><span>#</span><span>PLAYER</span><span>SCORE</span></div><div class="row"><b>🥇</b><span>CatKing</span><strong>12,492</strong></div><div class="row"><b>🥈</b><span>NekoMaster</span><strong>12,381</strong></div><div class="row"><b>🥉</b><span>ShuuLegend</span><strong>12,217</strong></div><div class="row"><b>4</b><span>MoonCat</span><strong>11,904</strong></div><div class="row"><b>5</b><span>KittySniper</span><strong>11,762</strong></div><div class="row you"><b>#1,100</b><span>You</span><strong>8,197</strong></div></div>
- <aside class="qualify"><span class="kicker">NFT QUALIFICATION</span><div class="qualify-number">TOP <b>1,100</b></div><p>Finish inside the qualifying positions to become eligible for the CatShu NFT mint.</p><div class="progress"><i></i></div><small>1,100 qualifying players • 1,111 total NFTs</small></aside></div></section>
-<section class="section" id="collection"><div class="section-head"><div><span class="kicker">THE COLLECTION</span><h2>CATSHU NFT</h2><p>1,111 unique CatShu characters.</p></div></div><div class="collection-grid"><div class="collector-card big"><img src="/catshu/assets/cat-gold.png"><span>CATSHU #0001</span></div><div class="collector-card"><img src="/catshu/assets/cat-white.png"><span>CATSHU #0002</span></div><div class="collector-card"><img src="/catshu/assets/cat-black.png"><span>CATSHU #0003</span></div><div class="collector-card"><img src="/catshu/assets/cat-pink.png"><span>CATSHU #0004</span></div></div></section>
-<section class="section about" id="about"><div class="about-card"><span class="kicker">ABOUT CATSHU</span><h2>PLAY. COMPETE. EARN YOUR PLACE.</h2><p>CatShu is a competitive game universe built around skill, reaction, memory and survival. Pick your CatShu, enter the arena and climb the Season 01 leaderboard.</p></div></section>
-<section class="section" id="roadmap"><div class="section-head"><div><span class="kicker">THE PLAN</span><h2>ROADMAP</h2></div></div><div class="roadmap-grid"><div><b>01</b><h3>Build the Arena</h3><p>Launch the core game and public leaderboard.</p></div><div><b>02</b><h3>Season 01</h3><p>Players compete for the 1,100 qualifying spots.</p></div><div><b>03</b><h3>NFT Mint</h3><p>Eligible players receive access to the CatShu mint.</p></div><div><b>04</b><h3>Community</h3><p>Expand game modes, events and CatShu experiences.</p></div></div></section>
-<section class="section" id="faq"><div class="section-head"><div><span class="kicker">QUESTIONS</span><h2>FAQ</h2></div></div><div class="faq-list"><details open><summary>How do I qualify?</summary><p>Play the challenges and climb the season leaderboard. The current target is the top 1,100 positions.</p></details><details><summary>How many NFTs are in CatShu?</summary><p>The collection is planned at 1,111 NFTs.</p></details><details><summary>Can I play without a wallet?</summary><p>Yes. Gameplay can be tested without connecting a wallet.</p></details></div></section>
-<section class="cta"><span class="kicker">YOUR PLACE STARTS HERE</span><h2>READY TO ENTER THE ARENA?</h2><p>Play today. Be part of tomorrow.</p><button class="btn primary" data-play="reaction">🎮 Enter the Arena →</button></section>
+
+<section class="stats">
+  <div><b>12,487</b><span>Players</span></div><div><b>1,100</b><span>NFT Qualification Slots</span></div>
+  <div><b>4</b><span>Game Modes</span></div><div><b>SEASON 01</b><span>Live Competition</span></div>
+</section>
+
+<section id="play">
+  <div class="head"><div><label>THE ARENA</label><h2>GAME MODES</h2><p>Choose your CatShu and compete across four challenges.</p></div><button class="outline" data-open-game>HOW IT WORKS →</button></div>
+  <div class="games">
+    <article class="game-card reaction"><div class="card-art"><img src="assets/cat-gold.png"></div><div><h3>⚡ REACTION</h3><p>Hit your CatShu as fast as possible. The target moves every hit.</p><button data-mode="reaction">PLAY NOW →</button></div></article>
+    <article class="game-card memory"><div class="card-art"><img src="assets/cat-white.png"></div><div><h3>🧠 MEMORY</h3><p>Watch the sequence, then repeat it correctly.</p><button data-mode="memory">PLAY NOW →</button></div></article>
+    <article class="game-card dodge"><div class="card-art"><img src="assets/cat-black.png"></div><div><h3>💨 DODGE</h3><p>Move your CatShu and survive the falling hazards.</p><button data-mode="dodge">PLAY NOW →</button></div></article>
+    <article class="game-card final"><div class="card-art"><img src="assets/cat-pink.png"></div><div><h3>👑 FINAL CHALLENGE</h3><p>Reaction + Memory + Dodge. One final score.</p><button data-mode="final">PLAY NOW →</button></div></article>
+  </div>
+</section>
+
+<section id="leaderboard">
+  <div class="head"><div><label>SEASON 01</label><h2>LIVE LEADERBOARD</h2><p>Every score counts. The qualifying line is #1,100.</p></div></div>
+  <div class="leader">
+    <div class="table">
+      <div class="r th"><span>#</span><span>PLAYER</span><span>SCORE</span></div>
+      <div class="r"><b>🥇</b><span>CatKing</span><strong>12,492</strong></div>
+      <div class="r"><b>🥈</b><span>NekoMaster</span><strong>12,381</strong></div>
+      <div class="r"><b>🥉</b><span>ShuuLegend</span><strong>12,217</strong></div>
+      <div class="r"><b>4</b><span>MoonCat</span><strong>11,904</strong></div>
+      <div class="r"><b>#1,100</b><span>You</span><strong id="youScore">0</strong></div>
+    </div>
+    <aside><label>NFT QUALIFICATION</label><h3>TOP <b>1,100</b></h3><p>Finish inside the qualifying positions to become eligible for the CatShu NFT mint.</p><div class="bar"><i></i></div><small>1,100 qualifying spots • 1,111 collection</small></aside>
+  </div>
+</section>
+
+<section id="collection"><div class="head"><div><label>THE COLLECTION</label><h2>CATSHU NFT</h2><p>1,111 unique CatShu characters.</p></div></div>
+<div class="collection"><div><img src="assets/cat-gold.png"><b>#0001</b></div><div><img src="assets/cat-white.png"><b>#0002</b></div><div><img src="assets/cat-black.png"><b>#0003</b></div><div><img src="assets/cat-pink.png"><b>#0004</b></div></div></section>
+
+<section id="about"><div class="head"><div><label>ABOUT CATSHU</label><h2>PLAY. COMPETE. EARN.</h2><p>CatShu is a competitive game experience where players build scores across skill-based challenges.</p></div></div></section>
+
+<section id="roadmap"><div class="head"><div><label>THE PLAN</label><h2>ROADMAP</h2></div></div><div class="roadmap"><div><b>01</b><h3>Build the Arena</h3><p>Launch the core games.</p></div><div><b>02</b><h3>Season 01</h3><p>Compete for 1,100 qualifying spots.</p></div><div><b>03</b><h3>NFT Mint</h3><p>Eligible players receive mint access.</p></div><div><b>04</b><h3>Community</h3><p>Events, seasons and new challenges.</p></div></div></section>
+
+<section id="faq"><div class="head"><div><label>QUESTIONS</label><h2>FAQ</h2></div></div><div class="faq"><details open><summary>How do I qualify?</summary><p>Play the challenges and climb the season leaderboard. The current target is the top 1,100 positions.</p></details><details><summary>How many NFTs are in CatShu?</summary><p>The collection is planned at 1,111 NFTs.</p></details><details><summary>Do I need a wallet to play?</summary><p>No. You can play the games without connecting a wallet. Wallet verification can be added later.</p></details></div></section>
 </main>
-<footer><div><span class="brand-word">Cat<span>Shu</span></span><small>PLAY • COMPETE • EARN</small></div><div class="socials"><a href="#">𝕏</a><a href="#">◉</a><a href="#">◎</a><a href="#">▶</a></div><p>© 2026 CatShu. Built for the community.</p><a href="#">💬 Join Discord</a></footer>
-<div class="game-modal" id="gameModal"><div class="game-window"><button class="game-close" id="gameClose">×</button><div id="gameContent"></div></div></div>
+
+<footer><div><b>Cat<span>Shu</span></b><small>PLAY • COMPETE • EARN</small></div><div>𝕏　◎　▶　 Discord</div><span>© 2026 CatShu</span></footer>
+
+<div class="modal" id="gameModal">
+ <div class="game-window">
+  <button class="close" id="closeGame">×</button>
+  <div class="select-screen" id="selectScreen">
+    <label>CHOOSE YOUR CATSHU</label><h2>ENTER THE ARENA</h2><div class="chars" id="chars"></div>
+    <div class="mode-picker"><button data-pick="reaction">⚡ Reaction</button><button data-pick="memory">🧠 Memory</button><button data-pick="dodge">💨 Dodge</button><button data-pick="final">👑 Final</button></div>
+  </div>
+  <div class="play-screen hidden" id="playScreen">
+    <div class="hud"><div>TIME<strong id="time">30</strong></div><div>SCORE<strong id="score">0</strong></div><div>COMBO<strong id="combo">0</strong></div><div>BEST<strong id="best">0</strong></div></div>
+    <div class="arena" id="arena"></div>
+  </div>
+ </div>
+</div>
+
 <script src="main.js"></script>
-</body></html>
+</body>
+</html>
