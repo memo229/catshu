@@ -1,1 +1,81 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no"><title>CatShu Runner</title><link rel="stylesheet" href="style.css"></head><body><div class="top"><b>🐱 CAT<span>SHU</span></b><small>SEASON 01 • TOP 1,100 QUALIFY</small><button id="sound">🔊</button></div><main><section id="home" class="screen on"><div class="card"><i>ENDLESS RUNNER</i><h1>CATSHU<br><em>RUNNER</em></h1><p>Run through the moonlit kingdom. Switch lanes, jump, slide and survive as the speed keeps rising.</p><div id="chars"></div><button id="start">START RUN ▶</button><div class="keys">← → LANE &nbsp; • &nbsp; ↑ JUMP &nbsp; • &nbsp; ↓ SLIDE</div></div></section><section id="game" class="screen"><canvas id="c"></canvas><div class="hud"><label>SCORE<strong id="sc">0</strong></label><label>DISTANCE<strong id="dist">0m</strong></label><label>COMBO<strong id="co">x1</strong></label><label class="best">BEST<strong id="be">0</strong></label></div><button id="pause">Ⅱ</button><div id="power">✦ <span>READY</span></div></section><section id="over" class="screen"><div class="result"><i>RUN COMPLETE</i><h2>LEGENDARY RUN</h2><div class="grid"><label>SCORE<b id="fsc">0</b></label><label>DISTANCE<b id="fd">0m</b></label><label>STARS<b id="fst">0</b></label><label>BEST<b id="fbe">0</b></label></div><p id="msg"></p><button id="again">RUN AGAIN ↻</button><button id="homeBtn">BACK TO HOME</button></div></section></main><footer>CATSHU • PLAY • COMPETE • EARN</footer><script src="main.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>CatShu Runner V2</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <canvas id="game"></canvas>
+
+  <div class="vignette"></div>
+  <div class="topbar">
+    <button class="icon-btn" id="pauseBtn">Ⅱ</button>
+    <div class="stat"><span class="label">SCORE</span><b id="score">0</b></div>
+    <div class="stat"><span class="label">DISTANCE</span><b><span id="distance">0</span>m</b></div>
+    <div class="stat"><span class="label">COMBO</span><b id="combo">x1</b></div>
+    <div class="stat best"><span class="label">BEST</span><b id="best">0</b></div>
+  </div>
+
+  <div class="powerbar">
+    <div class="power-icon">⚡</div>
+    <div class="power-track"><div id="powerFill"></div></div>
+    <span>DASH</span>
+  </div>
+
+  <div class="controls">
+    <button class="ctrl" id="leftBtn">‹</button>
+    <button class="ctrl jump" id="jumpBtn">↑<small>JUMP</small></button>
+    <button class="ctrl slide" id="slideBtn">↓<small>SLIDE</small></button>
+    <button class="ctrl" id="rightBtn">›</button>
+  </div>
+
+  <div class="screen" id="menu">
+    <div class="brand"><span>♛</span> CATSHU <small>RUNNER</small></div>
+    <p>RUN · COLLECT · EXPLORE</p>
+    <div class="hero-cat">
+      <div class="back-cat preview"><i></i><em></em><strong>♛</strong></div>
+    </div>
+    <button class="gold-btn" id="playBtn">▶ PLAY</button>
+    <button class="dark-btn" id="charsBtn">🐾 CHARACTERS</button>
+    <div class="hint">Swipe / arrows to move · ↑ jump · ↓ slide</div>
+  </div>
+
+  <div class="screen hidden" id="chars">
+    <div class="panel">
+      <button class="close" id="closeChars">×</button>
+      <h2>CHOOSE YOUR CATSHU</h2>
+      <div class="cats" id="cats"></div>
+      <div class="selected-name" id="selectedName">Snow King</div>
+      <button class="gold-btn" id="selectBtn">SELECT</button>
+    </div>
+  </div>
+
+  <div class="screen hidden" id="pause">
+    <div class="panel small">
+      <h2>PAUSED</h2>
+      <button class="gold-btn" id="resumeBtn">▶ RESUME</button>
+      <button class="dark-btn" id="restartBtn">↻ RESTART</button>
+      <button class="dark-btn" id="menuBtn">⌂ MAIN MENU</button>
+    </div>
+  </div>
+
+  <div class="screen hidden" id="gameover">
+    <div class="panel result">
+      <div class="over">RUN ENDED</div>
+      <h2 id="finalScore">0</h2>
+      <div class="result-grid">
+        <div><span>DISTANCE</span><b id="finalDistance">0m</b></div>
+        <div><span>STARS</span><b id="finalStars">0</b></div>
+        <div><span>BEST</span><b id="finalBest">0</b></div>
+      </div>
+      <button class="gold-btn" id="againBtn">↻ TRY AGAIN</button>
+      <button class="dark-btn" id="backBtn">⌂ MAIN MENU</button>
+    </div>
+  </div>
+</div>
+<script src="main.js"></script>
+</body>
+</html>
