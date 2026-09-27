@@ -186,14 +186,22 @@
   .task button{font-size:9px}
 }
 
-/* Mobile Performance Mode */
+
+/* V4.3 Optimized Mobile Performance */
 @media (max-width: 700px) {
-  *, *::before, *::after { -webkit-backdrop-filter:none !important; backdrop-filter:none !important; }
-  .particle,.star,.spark,.floating-particle { animation-duration:8s !important; opacity:.55 !important; }
-  .beam,.light-beam,.shimmer,.scanline { animation-duration:9s !important; opacity:.4 !important; }
-  .glow,.hero-glow,.card-glow { filter:blur(6px) !important; opacity:.5 !important; }
-  .task-card,.progress-card,.success-card { box-shadow:0 8px 24px rgba(0,0,0,.25) !important; }
-}
-@media (max-width:420px) {
-  .particle:nth-child(n+9),.star:nth-child(n+9),.spark:nth-child(n+9),.floating-particle:nth-child(n+9) { display:none !important; }
+  .particles, .stars, .sparkles {
+    opacity: .45 !important;
+  }
+  .particles > :nth-child(n+9),
+  .stars > :nth-child(n+9),
+  .sparkles > :nth-child(n+9) {
+    display: none !important;
+  }
+  .glow, .hero-glow, .card-glow {
+    filter: blur(5px) !important;
+    opacity: .42 !important;
+  }
+  .task-card, .progress-card, .success-card {
+    box-shadow: 0 8px 20px rgba(0,0,0,.24) !important;
+  }
 }

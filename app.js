@@ -11,12 +11,13 @@ document.querySelectorAll('[data-confirm]').forEach(btn=>btn.addEventListener('c
 async function submit(){const username=document.getElementById('username').value.trim().replace(/^@/,''),wallet=document.getElementById('wallet').value.trim(),commentLink=document.getElementById('commentLink').value.trim();if(!username)return msg('Enter your X username.',false);if(!/^0x[a-fA-F0-9]{40}$/.test(wallet))return msg('Enter a valid EVM wallet address.',false);if(!/^https?:\/\/.+/i.test(commentLink))return msg('Paste your comment link first.',false);state.wallet=true;update();msg('Saving your whitelist entry…');const row={x_username:username,wallet,comment_link:commentLink,tasks_completed:{follow:true,like:true,repost:true,comment:true,wallet:true},status:'completed'};const{error}=await supabaseClient.from('whitelist').insert(row);if(error){console.error(error);state.wallet=false;update();return msg('Could not save. Check Supabase/RLS settings.',false)}document.getElementById('successUsername').textContent='@'+username;document.getElementById('successWallet').textContent=wallet;document.getElementById('success').classList.remove('hidden');document.getElementById('tasks').style.display='none';document.getElementById('success').scrollIntoView({behavior:'smooth',block:'start'});document.getElementById('shareBtn').href='https://x.com/intent/post?text='+encodeURIComponent('I just joined the @CatShu whitelist! 🐱⚡');}
 update();
 
-// Lightweight mobile mode: keep the animated look while reducing decorative work.
-(function(){
-  if (window.matchMedia && window.matchMedia('(max-width:700px)').matches) {
-    document.documentElement.classList.add('mobile-performance');
-    document.querySelectorAll('.particle,.star,.spark,.floating-particle').forEach(function(el,i){
-      if(i>=10) el.style.display='none';
-    });
-  }
+
+// Swap local raster assets for their optimized WebP versions on mobile.
+(function () {
+  if (!window.matchMedia || !window.matchMedia('(max-width: 700px)').matches) return;
+  document.querySelectorAll('img[src]').forEach(function (img) {
+    var src = img.getAttribute('src');
+    if (!src || !/\.(png|jpe?g)$/i.test(src)) return;
+    img.setAttribute('src', src.replace(/\.(png|jpe?g)$/i, '.webp'));
+  });
 })();

@@ -17,5 +17,3 @@ Upload index.html, style.css, app.js and assets/ to your GitHub repository. Verc
 
 
 V4 uses assets/catshu-hero-bg.png as the full hero background. The whitelist/progress panel is positioned clearly on the right on desktop.
-
-V4.3 Lite: optimized mobile effects while preserving the desktop design.
