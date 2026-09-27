@@ -14,3 +14,6 @@ X:
 
 Deploy:
 Upload index.html, style.css, app.js and assets/ to your GitHub repository. Vercel/GitHub Pages can then serve it as a static site.
+
+
+V4 uses assets/catshu-hero-bg.png as the full hero background. The whitelist/progress panel is positioned clearly on the right on desktop.
