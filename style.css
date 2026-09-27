@@ -363,3 +363,190 @@
   .nav-mint{left:52%;transform:translate(-50%,-50%) scale(.92)}
   .nav-cta{font-size:9px;padding:7px 8px}
 }
+
+/* V5 — Premium black/gold HUD redesign for header + whitelist panel */
+:root{
+  --ink:#050609;
+  --gold:#ffd22f;
+  --gold2:#fff0a1;
+  --panel:#080a10;
+  --panel2:#10131c;
+  --panelLine:#4c5262;
+  --violet:#8a63ff;
+}
+
+/* stronger premium header */
+.nav{
+  height:76px;
+  background:
+    linear-gradient(180deg,rgba(3,4,7,.99),rgba(8,9,14,.98)),
+    radial-gradient(circle at 50% 0,rgba(255,210,47,.12),transparent 48%);
+  border-bottom:1px solid rgba(255,210,47,.72);
+  box-shadow:0 8px 35px rgba(0,0,0,.48), inset 0 -1px 0 rgba(255,255,255,.04);
+}
+.nav::after{
+  content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;
+  background:linear-gradient(90deg,transparent 0%,#ffd22f 22%,#fff3a0 50%,#ffd22f 78%,transparent 100%);
+  opacity:.55;pointer-events:none;
+}
+.brand-mark{
+  background:linear-gradient(145deg,#11131a,#050608);
+  border-color:#ffd22f;
+  box-shadow:0 0 0 1px rgba(255,255,255,.12),0 0 22px rgba(255,210,47,.22);
+}
+.nav-cta{
+  position:relative;
+  background:linear-gradient(135deg,#fff09a 0%,#ffd22f 48%,#e6a900 100%);
+  border-color:#fff;
+  box-shadow:4px 4px 0 #000,0 0 24px rgba(255,210,47,.22),inset 0 1px 0 rgba(255,255,255,.7);
+}
+.nav-cta::before{
+  content:"";position:absolute;inset:2px;border:1px solid rgba(0,0,0,.18);border-radius:20px;pointer-events:none;
+}
+
+/* countdown becomes a premium central HUD */
+.nav-mint{
+  min-height:42px;
+  padding:7px 10px 7px 15px;
+  gap:5px;
+  background:linear-gradient(180deg,#141821,#07090d);
+  border:1px solid rgba(255,210,47,.88);
+  border-radius:13px;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.13),
+    inset 0 -1px 0 rgba(255,210,47,.12),
+    0 0 0 1px rgba(255,210,47,.08),
+    0 0 28px rgba(255,210,47,.13),
+    0 6px 18px rgba(0,0,0,.45);
+}
+.nav-mint::before{content:"◈";font-size:9px;color:#ffd22f;margin-right:2px}
+.nav-mint .top-mint-label{font-size:9px;color:#ffd22f;letter-spacing:.16em}
+.nav-mint strong{font-size:16px;color:#fff;letter-spacing:.01em}
+.nav-mint span:not(.top-mint-label):not(.top-divider):not(.top-opensea){color:#8992a5;font-size:7px}
+.nav-mint .top-divider{height:20px;background:#343946;margin:0 6px}
+.nav-mint .top-opensea{
+  padding:7px 11px;
+  border-radius:9px;
+  background:linear-gradient(135deg,#fff19b,#ffd22f);
+  border:1px solid #fff;
+  box-shadow:2px 2px 0 #000, inset 0 1px 0 rgba(255,255,255,.65);
+}
+
+/* hero overlay: darker edges make the UI pop */
+.hero:before{
+  background:linear-gradient(90deg,rgba(2,4,8,.58) 0%,rgba(2,4,8,.06) 43%,rgba(2,4,8,.30) 100%);
+}
+.hero:after{
+  background:
+    radial-gradient(circle at 52% 32%,rgba(255,218,73,.12),transparent 30%),
+    linear-gradient(180deg,rgba(0,0,0,.02) 35%,rgba(0,0,0,.30) 100%);
+}
+
+/* premium quest panel */
+.task-panel{
+  width:min(510px,36vw);
+  padding:19px;
+  background:
+    linear-gradient(180deg,rgba(13,15,21,.985),rgba(5,7,11,.985));
+  border:1px solid #8d94a4;
+  border-radius:22px;
+  box-shadow:
+    12px 14px 0 rgba(0,0,0,.9),
+    0 0 0 1px rgba(255,210,47,.18),
+    0 0 35px rgba(255,210,47,.12),
+    inset 0 1px 0 rgba(255,255,255,.12);
+  overflow:visible;
+}
+.task-panel::before{
+  content:"";position:absolute;left:14px;right:14px;top:-1px;height:2px;
+  background:linear-gradient(90deg,transparent,#ffd22f 18%,#fff2a0 50%,#ffd22f 82%,transparent);
+  box-shadow:0 0 13px rgba(255,210,47,.65);
+}
+.task-panel::after{
+  content:"";position:absolute;right:12px;top:12px;width:8px;height:8px;border-radius:50%;
+  background:#ffd22f;box-shadow:0 0 12px #ffd22f;opacity:.8;
+}
+.panel-head{padding:2px 3px 0}
+.panel-head strong{
+  font-size:32px;
+  letter-spacing:1.4px;
+  text-shadow:3px 3px 0 #000,0 0 14px rgba(255,255,255,.07);
+}
+.panel-head small{font-size:10px;color:#8d95a6;letter-spacing:.04em}
+.progress-num{font-size:25px;text-shadow:0 0 12px rgba(255,210,47,.22)}
+.progress-track{
+  height:12px;
+  margin:11px 1px 14px;
+  background:#181c25;
+  border:1px solid #323846;
+  box-shadow:inset 0 2px 5px rgba(0,0,0,.55);
+}
+.progress-track span{
+  background:linear-gradient(90deg,#e6a900,#ffd22f,#fff0a0);
+  box-shadow:0 0 14px rgba(255,210,47,.45);
+}
+.task{
+  position:relative;
+  grid-template-columns:40px 42px minmax(0,1fr) auto;
+  background:linear-gradient(135deg,#151922 0%,#0b0e14 100%);
+  border:1px solid #303746;
+  border-radius:13px;
+  padding:11px;
+  margin:8px 0;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.035),0 4px 9px rgba(0,0,0,.22);
+}
+.task::after{
+  content:"";position:absolute;left:0;top:8px;bottom:8px;width:2px;border-radius:2px;background:transparent;
+}
+.task.active{
+  border-color:#c6ccd8;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.05),0 0 18px rgba(255,210,47,.06);
+}
+.task.active::after{background:#ffd22f;box-shadow:0 0 10px rgba(255,210,47,.7)}
+.task.done{border-color:#a7d72e;background:linear-gradient(135deg,#141e16,#0b110d)}
+.num{
+  background:linear-gradient(145deg,#fff09a,#ffd22f 55%,#d79b00);
+  border:1px solid rgba(255,255,255,.72);
+  box-shadow:2px 2px 0 #000,0 0 9px rgba(255,210,47,.18);
+}
+.task-icon{
+  background:#0a0d13;
+  border-color:#4d5668;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
+}
+.task-body h3{font-size:14px;color:#f4f6fa}
+.task-body p{color:#818b9e}
+.task-body input{
+  background:#07090d;
+  border-color:#3e4758;
+  box-shadow:inset 0 2px 6px rgba(0,0,0,.35);
+}
+.task button{
+  background:linear-gradient(135deg,#fff09a,#ffd22f 55%,#e3a800);
+  border-color:#fff;
+  box-shadow:2px 2px 0 #000,inset 0 1px 0 rgba(255,255,255,.65);
+}
+.message{color:#737d91}
+
+@media(max-width:1100px){
+  .task-panel{width:min(470px,48vw)}
+}
+@media(max-width:760px){
+  .nav{height:65px}
+  .nav-mint{
+    left:53%;
+    min-height:34px;
+    padding:5px 6px 5px 8px;
+    border-radius:10px;
+    box-shadow:0 0 13px rgba(255,210,47,.10),0 3px 9px rgba(0,0,0,.35);
+  }
+  .nav-mint .top-opensea{padding:5px 7px;border-radius:7px}
+  .task-panel{
+    width:100%;
+    padding:14px;
+    border-radius:18px;
+    box-shadow:6px 8px 0 rgba(0,0,0,.9),0 0 20px rgba(255,210,47,.08);
+  }
+  .panel-head strong{font-size:25px}
+  .task{border-radius:12px}
+}
