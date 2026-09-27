@@ -1,72 +1,164 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CatShu — Whitelist</title>
+  <meta name="description" content="Join the CatShu whitelist. Complete the steps and secure your spot.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="nav">
-    <div class="brand">
-      <div class="brand-pic"><img src="./assets/catshu-1.png" alt="CatShu"></div>
+  <div class="bg-grid"></div>
+  <div class="blob blob-one"></div>
+  <div class="blob blob-two"></div>
+
+  <header class="topbar">
+    <a class="logo" href="#">
+      <span class="logo-mark">C</span>
       <span>CATSHU</span>
-    </div>
+    </a>
     <nav>
-      <a href="#tasks">TASKS</a>
-      <a href="#about">ABOUT</a>
-      <a href="#gallery">GALLERY</a>
-      <a href="https://x.com/" target="_blank" rel="noopener">X</a>
+      <a href="#steps">How it works</a>
+      <a href="#gallery">CatShu</a>
+      <a href="https://x.com/1catshu" target="_blank" rel="noopener">𝕏</a>
     </nav>
-    <a class="home-btn" href="#top">HOME</a>
+    <a class="top-btn" href="#steps">JOIN WHITELIST</a>
   </header>
 
-  <main id="top">
+  <main>
     <section class="hero">
-      <div class="intro">
-        <div class="tag">CATSHU WHITELIST</div>
-        <h1>GET ON<br>THE<br>CATSHU<br>LIST.</h1>
-        <p>Complete the tasks in order.<br>Each step unlocks the next.<br>Drop your wallet at the finish line.</p>
-        <div class="floating-art">
-          <img src="./assets/catshu-3.png" alt="CatShu character">
+      <div class="hero-copy">
+        <div class="eyebrow"><i></i> CATSHU WHITELIST</div>
+        <h1>Your spot.<br><span>Your CatShu.</span></h1>
+        <p class="lead">Complete a few simple steps, send your proof link, and get your wallet on the whitelist.</p>
+        <div class="hero-buttons">
+          <a class="button primary" href="#steps">GET ON THE LIST <b>↓</b></a>
+          <a class="button secondary" href="https://x.com/1catshu" target="_blank" rel="noopener">FOLLOW @1CATSHU ↗</a>
+        </div>
+        <div class="mini-stats">
+          <div><strong>1,111</strong><span>CATSHU</span></div>
+          <div><strong>FREE</strong><span>WHITELIST</span></div>
+          <div><strong>∞</strong><span>ATTITUDE</span></div>
         </div>
       </div>
 
-      <div class="card" id="tasks">
-        <div class="card-top">
-          <span id="levelLabel">CATSHU LEVEL 1/5</span>
-          <div class="progress"><div id="progressBar"></div></div>
+      <div class="hero-cats">
+        <div class="halo"></div>
+        <div class="hero-card back"><img src="assets/catshu-2.png" alt="CatShu"></div>
+        <div class="hero-card main-cat"><img src="assets/catshu-1.png" alt="CatShu"></div>
+        <div class="floating-pill pill-one">01 / ORIGINAL</div>
+        <div class="floating-pill pill-two">1,111 EDITION</div>
+        <div class="spark spark-a">✦</div>
+        <div class="spark spark-b">✦</div>
+      </div>
+    </section>
+
+    <section id="steps" class="join-section">
+      <div class="section-intro">
+        <div class="eyebrow">THE PROCESS</div>
+        <h2>Four moves.<br><span>One whitelist spot.</span></h2>
+        <p>Finish each step in order. For the comment step, the actual comment text does not matter — just paste the link to your comment.</p>
+      </div>
+
+      <div class="steps-card">
+        <div class="progress-head">
+          <span>CATSHU ACCESS</span>
+          <strong><span id="progressCount">0</span>/4</strong>
         </div>
+        <div class="progress"><span id="progressBar"></span></div>
 
-        <div id="taskView"></div>
+        <article class="step active" data-step="1">
+          <div class="number">01</div>
+          <div class="step-body">
+            <h3>Follow CatShu on X</h3>
+            <p>Follow <b>@1catshu</b>, then come back here.</p>
+            <a class="task-button blue" href="https://x.com/1catshu" target="_blank" rel="noopener">OPEN X ↗</a>
+            <button class="confirm" data-confirm="follow">I FOLLOWED — CONTINUE</button>
+          </div>
+          <div class="check">✓</div>
+        </article>
 
-        <div class="footer-note">ONE STEP AT A TIME. NO FAKE LINKS.</div>
+        <article class="step locked" data-step="2">
+          <div class="number">02</div>
+          <div class="step-body">
+            <h3>Your X username</h3>
+            <p>Enter the username you used for the follow.</p>
+            <div class="input-row">
+              <span>@</span><input id="username" type="text" placeholder="yourusername" autocomplete="off">
+            </div>
+            <button class="confirm" data-confirm="username">SAVE USERNAME</button>
+          </div>
+          <div class="check">✓</div>
+        </article>
+
+        <article class="step locked" data-step="3">
+          <div class="number">03</div>
+          <div class="step-body">
+            <h3>Comment on the CatShu post</h3>
+            <p>Leave a comment on the required post, then paste the <b>link to your comment</b> below. The comment itself is not checked here.</p>
+            <a class="task-button pink" href="https://x.com/1catshu" target="_blank" rel="noopener">OPEN CATSHU POST ↗</a>
+            <div class="input-row">
+              <span>↗</span><input id="commentLink" type="url" placeholder="https://x.com/.../status/...">
+            </div>
+            <button class="confirm" data-confirm="comment">SAVE COMMENT LINK</button>
+          </div>
+          <div class="check">✓</div>
+        </article>
+
+        <article class="step locked" data-step="4">
+          <div class="number">04</div>
+          <div class="step-body">
+            <h3>Your EVM wallet</h3>
+            <p>This is where your CatShu whitelist spot will be recorded.</p>
+            <div class="input-row">
+              <span>0x</span><input id="wallet" type="text" placeholder="paste your wallet address" autocomplete="off">
+            </div>
+            <button class="confirm finish" data-confirm="wallet">JOIN THE WHITELIST ✓</button>
+          </div>
+          <div class="check">✓</div>
+        </article>
+
+        <div id="message" class="message"></div>
       </div>
     </section>
 
-    <section class="gallery" id="gallery">
-      <div class="section-title">MEET THE CATSHU</div>
-      <div class="gallery-grid">
-        <img src="./assets/catshu-1.png" alt="CatShu">
-        <img src="./assets/catshu-2.png" alt="CatShu">
-        <img src="./assets/catshu-3.png" alt="CatShu">
-        <img src="./assets/catshu-4.png" alt="CatShu">
-        <img src="./assets/catshu-5.png" alt="CatShu">
+    <section id="gallery" class="gallery-section">
+      <div class="gallery-head">
+        <div>
+          <div class="eyebrow">THE CHARACTERS</div>
+          <h2>Meet the <span>CatShu.</span></h2>
+        </div>
+        <p>Different colors. Different moods. Same CatShu energy.</p>
+      </div>
+      <div class="gallery">
+        <figure><img src="assets/catshu-1.png" alt="CatShu #001"><figcaption>#001 — VOLT</figcaption></figure>
+        <figure><img src="assets/catshu-2.png" alt="CatShu #002"><figcaption>#002 — SHADOW</figcaption></figure>
+        <figure><img src="assets/catshu-3.png" alt="CatShu #003"><figcaption>#003 — ROYAL</figcaption></figure>
+        <figure><img src="assets/catshu-4.png" alt="CatShu #004"><figcaption>#004 — FROST</figcaption></figure>
+        <figure><img src="assets/catshu-5.png" alt="CatShu #005"><figcaption>#005 — REBEL</figcaption></figure>
       </div>
     </section>
 
-    <section class="about" id="about">
-      <div class="tag">ABOUT</div>
-      <h2>FREE MINT.<br>ONE CATSHU.</h2>
-      <p>Finish the whitelist journey, submit your wallet, and keep an eye on X for the official mint announcement.</p>
+    <section class="final-cta">
+      <div class="cta-cat"><img src="assets/catshu-3.png" alt="CatShu"></div>
+      <div>
+        <div class="eyebrow">READY?</div>
+        <h2>GET YOUR NAME<br><span>ON THE LIST.</span></h2>
+      </div>
+      <a class="button primary" href="#steps">START NOW ↑</a>
     </section>
   </main>
 
-  <div id="toast" class="toast"></div>
+  <footer>
+    <span>© 2026 CATSHU</span>
+    <span>1,111 UNIQUE CATS</span>
+    <a href="https://x.com/1catshu" target="_blank" rel="noopener">@1CATSHU ↗</a>
+  </footer>
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="./app.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
