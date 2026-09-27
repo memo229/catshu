@@ -68,3 +68,14 @@ update();
   tick();
   setInterval(tick, 1000);
 })();
+
+
+(function(){
+const T=Date.parse('2026-10-15T15:00:00+03:00');
+function tick(){
+ const n=Math.max(0,T-Date.now()),x=Math.floor(n/1000);
+ const v=[Math.floor(x/86400),Math.floor(x%86400/3600),Math.floor(x%3600/60),x%60];
+ ['top-cd-days','top-cd-hours','top-cd-minutes','top-cd-seconds'].forEach((id,i)=>{const e=document.getElementById(id);if(e)e.textContent=String(v[i]).padStart(2,'0')});
+}
+tick();setInterval(tick,1000);
+})();
