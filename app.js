@@ -21,3 +21,29 @@ update();
     img.setAttribute('src', src.replace(/\.(png|jpe?g)$/i, '.webp'));
   });
 })();
+
+
+// ULTRA-LIGHT MOBILE MODE
+(function () {
+  if (!window.matchMedia || !window.matchMedia('(max-width: 700px)').matches) return;
+  document.documentElement.classList.add('mobile-ultralight');
+
+  // Remove common decorative animation nodes if the page creates them dynamically.
+  const selectors = [
+    '.particles', '.stars', '.sparkles',
+    '.particle', '.star', '.spark',
+    '.light-beam', '.beam', '.shimmer',
+    '.scanline', '.floating-particle',
+    '.noise', '.grain'
+  ];
+  document.querySelectorAll(selectors.join(',')).forEach(el => el.remove());
+
+  // Pause videos/canvases used only for decoration.
+  document.querySelectorAll('video').forEach(v => {
+    try { v.pause(); } catch(e) {}
+    v.removeAttribute('autoplay');
+  });
+  document.querySelectorAll('canvas').forEach(c => {
+    if (!c.closest('form, .task-card, .progress-card, .success-card')) c.remove();
+  });
+})();

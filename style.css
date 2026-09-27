@@ -205,3 +205,44 @@
     box-shadow: 0 8px 20px rgba(0,0,0,.24) !important;
   }
 }
+
+
+/* ULTRA-LIGHT MOBILE MODE */
+@media (max-width: 700px) {
+  /* Remove expensive decorative effects on phones */
+  .particles, .stars, .sparkles,
+  .particle, .star, .spark,
+  .light-beam, .beam, .shimmer, .scanline,
+  .floating-particle, .noise, .grain {
+    display: none !important;
+    animation: none !important;
+  }
+
+  /* No blur/filter/backdrop effects */
+  *, *::before, *::after {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  .glow, .hero-glow, .card-glow {
+    filter: none !important;
+    animation: none !important;
+  }
+
+  /* Stop decorative animations everywhere */
+  .hero-art, .background-art,
+  .task-card, .progress-card, .success-card,
+  .hero, .card {
+    animation: none !important;
+  }
+
+  /* Keep a simple lightweight shadow */
+  .task-card, .progress-card, .success-card {
+    box-shadow: 0 6px 14px rgba(0,0,0,.20) !important;
+  }
+
+  /* Disable transition work on mobile */
+  * {
+    transition: none !important;
+  }
+}
