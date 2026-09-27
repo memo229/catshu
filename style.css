@@ -714,3 +714,241 @@
   .top-opensea{padding:0 6px;font-size:6.5px}
   .nav-cta{min-width:82px;padding:0 7px;font-size:8px}
 }
+
+
+/* ================================
+   V8 — NEW HEADER / PREMIUM CATSHU
+   Replaces the previous HUD/polygon header
+   ================================ */
+
+.nav{
+  height:78px !important;
+  padding:0 clamp(18px,4.5vw,76px) !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  gap:22px !important;
+  background:
+    linear-gradient(180deg,#090a0e 0%,#111318 100%) !important;
+  border-bottom:1px solid rgba(255,212,42,.42) !important;
+  box-shadow:0 10px 32px rgba(0,0,0,.38), inset 0 -1px rgba(255,255,255,.05) !important;
+  overflow:visible !important;
+}
+
+/* premium light rails */
+.nav:before{
+  content:"" !important;
+  position:absolute !important;
+  left:0 !important; right:0 !important; top:0 !important; height:2px !important;
+  background:linear-gradient(90deg,transparent 0%,#ffd42a 18%,#fff2a1 50%,#ffd42a 82%,transparent 100%) !important;
+  box-shadow:0 0 16px rgba(255,212,42,.35) !important;
+}
+.nav:after{
+  content:"" !important;
+  position:absolute !important;
+  left:50% !important; bottom:-1px !important;
+  width:260px !important; height:2px !important;
+  transform:translateX(-50%) !important;
+  background:#ffd42a !important;
+  box-shadow:0 0 14px rgba(255,212,42,.5) !important;
+}
+
+/* brand: clean, bold, no sci-fi frame */
+.brand{
+  min-width:auto !important;
+  width:auto !important;
+  height:auto !important;
+  padding:0 !important;
+  gap:10px !important;
+  border:0 !important;
+  background:none !important;
+  clip-path:none !important;
+  filter:none !important;
+  font-size:32px !important;
+  letter-spacing:1px !important;
+  text-shadow:2px 3px 0 #000,0 0 18px rgba(255,212,42,.10) !important;
+}
+.brand:after{display:none !important}
+.brand-mark{
+  width:45px !important;height:45px !important;flex:0 0 45px !important;
+  border:1px solid #ffd42a !important;
+  border-radius:12px !important;
+  background:linear-gradient(145deg,#1a1c23,#07080b) !important;
+  box-shadow:0 0 0 2px rgba(255,212,42,.08),0 0 20px rgba(255,212,42,.20) !important;
+}
+.brand-mark:after{display:none !important}
+.brand-mark img{width:52px !important;height:52px !important}
+
+/* center countdown: new segmented luxury capsule */
+.nav-mint{
+  position:absolute !important;
+  left:50% !important; top:50% !important;
+  transform:translate(-50%,-50%) !important;
+  min-width:410px !important;
+  height:50px !important;
+  padding:5px 7px 5px 15px !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:8px !important;
+  background:#0c0d11 !important;
+  border:1px solid #34363e !important;
+  border-radius:12px !important;
+  clip-path:none !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.07),
+    inset 0 -1px 0 rgba(0,0,0,.7),
+    0 7px 20px rgba(0,0,0,.42),
+    0 0 0 1px rgba(255,212,42,.07) !important;
+}
+.nav-mint:before,.nav-mint:after{
+  content:"" !important;
+  position:absolute !important;
+  width:3px !important;height:22px !important;
+  background:#ffd42a !important;
+  opacity:1 !important;
+  box-shadow:0 0 10px rgba(255,212,42,.45) !important;
+}
+.nav-mint:before{left:-1px !important;top:14px !important}
+.nav-mint:after{right:-1px !important;bottom:14px !important}
+
+.top-mint-label{
+  color:#ffd42a !important;
+  font-size:9px !important;
+  font-weight:1000 !important;
+  letter-spacing:1.8px !important;
+  margin-right:3px !important;
+}
+.nav-mint strong{
+  font-family:'DM Sans',sans-serif !important;
+  font-size:18px !important;
+  font-weight:1000 !important;
+  letter-spacing:.3px !important;
+  min-width:18px !important;
+  color:#fff !important;
+  text-shadow:none !important;
+}
+.nav-mint>span:not(.top-mint-label):not(.top-divider):not(.top-opensea){
+  font-size:7px !important;
+  color:#6f7582 !important;
+  margin-left:-6px !important;
+  letter-spacing:.4px !important;
+}
+.top-divider{
+  width:1px !important;height:25px !important;
+  background:#343740 !important;
+  margin:0 5px !important;
+}
+.top-opensea{
+  height:32px !important;
+  padding:0 13px !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  color:#111 !important;
+  background:#ffd42a !important;
+  border:0 !important;
+  border-radius:7px !important;
+  clip-path:none !important;
+  box-shadow:3px 3px 0 #000 !important;
+  font-size:9px !important;
+  letter-spacing:.7px !important;
+  font-weight:1000 !important;
+}
+.top-opensea:hover{
+  transform:translateY(-1px) !important;
+  filter:brightness(1.08) !important;
+}
+
+/* whitelist: solid premium button */
+.nav-cta{
+  min-width:145px !important;
+  height:46px !important;
+  padding:0 20px !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  border:1px solid #fff !important;
+  border-radius:9px !important;
+  clip-path:none !important;
+  background:linear-gradient(180deg,#ffe978 0%,#ffd42a 55%,#e5b400 100%) !important;
+  color:#111 !important;
+  box-shadow:4px 4px 0 #000,0 0 22px rgba(255,212,42,.20),inset 0 1px rgba(255,255,255,.9) !important;
+  font-size:11px !important;
+  font-weight:1000 !important;
+  letter-spacing:.8px !important;
+}
+.nav-cta:before{
+  content:"" !important;
+  display:none !important;
+}
+.nav-cta span{font-size:14px !important}
+
+/* remove old desktop nav links if present */
+.nav nav{display:none !important}
+
+/* tablet */
+@media(max-width:900px){
+  .nav{height:72px !important;padding:0 14px !important}
+  .nav-mint{min-width:350px !important}
+  .nav-cta{min-width:120px !important}
+}
+
+/* mobile: keep everything in one clean row */
+@media(max-width:700px){
+  .nav{
+    height:64px !important;
+    padding:0 9px !important;
+    gap:6px !important;
+  }
+  .brand{
+    font-size:23px !important;
+    gap:6px !important;
+    flex:0 0 auto !important;
+  }
+  .brand-mark{
+    width:37px !important;height:37px !important;flex-basis:37px !important;
+    border-radius:10px !important;
+  }
+  .brand-mark img{width:44px !important;height:44px !important}
+  .nav-mint{
+    position:relative !important;
+    left:auto !important;top:auto !important;
+    transform:none !important;
+    min-width:0 !important;
+    width:auto !important;
+    flex:1 1 auto !important;
+    max-width:none !important;
+    height:38px !important;
+    padding:4px 5px 4px 8px !important;
+    gap:3px !important;
+    border-radius:9px !important;
+  }
+  .nav-mint:before,.nav-mint:after{height:16px !important;top:11px !important;bottom:auto !important}
+  .nav-mint:after{top:11px !important}
+  .top-mint-label{font-size:6.5px !important;letter-spacing:.7px !important}
+  .nav-mint strong{font-size:13px !important;min-width:14px !important}
+  .nav-mint>span:not(.top-mint-label):not(.top-divider):not(.top-opensea){font-size:5.5px !important}
+  .top-divider{height:18px !important;margin:0 2px !important}
+  .top-opensea{height:26px !important;padding:0 7px !important;font-size:6.5px !important;box-shadow:2px 2px 0 #000 !important}
+  .nav-cta{
+    min-width:82px !important;
+    height:38px !important;
+    padding:0 8px !important;
+    border-radius:7px !important;
+    font-size:8px !important;
+    box-shadow:3px 3px 0 #000 !important;
+    flex:0 0 auto !important;
+  }
+  .nav-cta span{font-size:10px !important}
+}
+
+@media(max-width:390px){
+  .brand>span:not(.brand-mark),.brand i{display:none !important}
+  .brand{width:37px !important}
+  .nav-mint{padding-left:7px !important}
+  .top-mint-label{display:none !important}
+  .nav-mint strong{font-size:12px !important}
+  .top-opensea{padding:0 6px !important;font-size:6px !important}
+  .nav-cta{min-width:76px !important;font-size:7.5px !important}
+}
