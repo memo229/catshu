@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CatShu — Whitelist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header class="nav">
+    <div class="brand">
+      <div class="brand-pic"><img src="./assets/catshu-1.png" alt="CatShu"></div>
+      <span>CATSHU</span>
+    </div>
+    <nav>
+      <a href="#tasks">TASKS</a>
+      <a href="#about">ABOUT</a>
+      <a href="#gallery">GALLERY</a>
+      <a href="https://x.com/" target="_blank" rel="noopener">X</a>
+    </nav>
+    <a class="home-btn" href="#top">HOME</a>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="intro">
+        <div class="tag">CATSHU WHITELIST</div>
+        <h1>GET ON<br>THE<br>CATSHU<br>LIST.</h1>
+        <p>Complete the tasks in order.<br>Each step unlocks the next.<br>Drop your wallet at the finish line.</p>
+        <div class="floating-art">
+          <img src="./assets/catshu-3.png" alt="CatShu character">
+        </div>
+      </div>
+
+      <div class="card" id="tasks">
+        <div class="card-top">
+          <span id="levelLabel">CATSHU LEVEL 1/5</span>
+          <div class="progress"><div id="progressBar"></div></div>
+        </div>
+
+        <div id="taskView"></div>
+
+        <div class="footer-note">ONE STEP AT A TIME. NO FAKE LINKS.</div>
+      </div>
+    </section>
+
+    <section class="gallery" id="gallery">
+      <div class="section-title">MEET THE CATSHU</div>
+      <div class="gallery-grid">
+        <img src="./assets/catshu-1.png" alt="CatShu">
+        <img src="./assets/catshu-2.png" alt="CatShu">
+        <img src="./assets/catshu-3.png" alt="CatShu">
+        <img src="./assets/catshu-4.png" alt="CatShu">
+        <img src="./assets/catshu-5.png" alt="CatShu">
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <div class="tag">ABOUT</div>
+      <h2>FREE MINT.<br>ONE CATSHU.</h2>
+      <p>Finish the whitelist journey, submit your wallet, and keep an eye on X for the official mint announcement.</p>
+    </section>
+  </main>
+
+  <div id="toast" class="toast"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
