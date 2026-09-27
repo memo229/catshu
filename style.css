@@ -246,3 +246,53 @@
     transition: none !important;
   }
 }
+
+
+/* Final mobile cleanup */
+@media (max-width: 700px) {
+  .hero-copy p,
+  .hero-description,
+  .hero-subtitle,
+  .hero-text,
+  .intro-copy,
+  .hero-copy .eyebrow + p {
+    display: none !important;
+  }
+}
+
+
+/* CatShu countdown */
+.catshu-countdown {
+  margin: 22px auto;
+  max-width: 720px;
+  padding: 22px;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 24px;
+  background: rgba(7,10,24,.58);
+  box-shadow: 0 16px 50px rgba(0,0,0,.28), 0 0 35px rgba(60,150,255,.12);
+  text-align: center;
+}
+.countdown-kicker { font-weight: 900; letter-spacing: .18em; font-size: .75rem; opacity: .75; }
+.countdown-title { margin: 5px 0 16px; font-weight: 1000; font-size: clamp(1.1rem, 3vw, 1.7rem); letter-spacing: .08em; }
+.countdown-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.countdown-box {
+  padding: 14px 8px;
+  border-radius: 16px;
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.12);
+}
+.countdown-box strong { display:block; font-size: clamp(1.5rem, 5vw, 2.5rem); line-height:1; }
+.countdown-box span { display:block; margin-top:7px; font-size:.62rem; font-weight:900; letter-spacing:.1em; opacity:.7; }
+.opensea-cta {
+  display:inline-flex; align-items:center; justify-content:center;
+  margin-top:16px; padding:12px 18px; border-radius:999px;
+  font-weight:1000; text-decoration:none; color:#111;
+  background: linear-gradient(135deg,#ffd84a,#fff19a);
+  box-shadow: 0 0 24px rgba(255,216,74,.28);
+}
+@media (max-width: 700px) {
+  .catshu-countdown { margin: 16px 0; padding: 16px; border-radius: 18px; }
+  .countdown-grid { gap: 7px; }
+  .countdown-box { padding: 11px 5px; border-radius: 13px; }
+  .opensea-cta { width: 100%; box-sizing: border-box; }
+}

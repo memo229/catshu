@@ -47,3 +47,24 @@ update();
     if (!c.closest('form, .task-card, .progress-card, .success-card')) c.remove();
   });
 })();
+
+
+// CatShu mint countdown: 15 Oct 2026, 3:00 PM Egypt time (UTC+3).
+(function () {
+  const CATSHU_MINT_TARGET = Date.parse('2026-10-15T15:00:00+03:00');
+  function tick() {
+    const left = Math.max(0, CATSHU_MINT_TARGET - Date.now());
+    const total = Math.floor(left / 1000);
+    const d = Math.floor(total / 86400);
+    const h = Math.floor((total % 86400) / 3600);
+    const m = Math.floor((total % 3600) / 60);
+    const sec = total % 60;
+    const set = (id, val) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = String(val).padStart(2, '0');
+    };
+    set('cd-days', d); set('cd-hours', h); set('cd-minutes', m); set('cd-seconds', sec);
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
