@@ -302,10 +302,14 @@
 .top-mint-countdown{position:fixed;top:12px;right:24px;z-index:1000;display:inline-flex;align-items:baseline;gap:5px;padding:8px 13px;border-radius:999px;background:rgba(7,10,24,.76);border:1px solid rgba(255,216,74,.38);box-shadow:0 0 22px rgba(255,216,74,.14);color:#fff;font-size:11px;font-weight:900}
 .top-mint-countdown .top-mint-label{color:#ffd84a;margin-right:3px;letter-spacing:.12em}
 .top-mint-countdown strong{font-size:15px;line-height:1}
-.top-mint-countdown span:not(.top-mint-label){opacity:.58;font-size:9px}
+.top-mint-countdown span:not(.top-mint-label):not(.top-divider){opacity:.58;font-size:9px}
+.top-mint-countdown .top-divider{width:1px;height:16px;background:rgba(255,255,255,.2);margin:0 4px}
+.top-mint-countdown .top-opensea{color:#ffd84a;text-decoration:none;font-size:10px;font-weight:1000;letter-spacing:.06em;white-space:nowrap}
+.top-mint-countdown .top-opensea:hover{text-decoration:underline}
 @media(max-width:700px){
  .top-mint-countdown{position:static;margin:8px auto 10px;width:max-content;box-shadow:none;background:rgba(7,10,24,.68)}
  .catshu-countdown{display:none!important}
+ .mini-note{display:none!important}
  .background-art{opacity:.58!important}
  .particles,.stars,.sparkles,.particle,.star,.spark,.light-beam,.beam,.shimmer,.scanline,.floating-particle,.noise,.grain{display:none!important}
  *,*::before,*::after{-webkit-backdrop-filter:none!important;backdrop-filter:none!important;animation:none!important;transition:none!important}
