@@ -85,3 +85,115 @@
 @keyframes panelGlow{from{box-shadow:12px 14px 0 #000,0 0 0 rgba(255,212,42,0)}to{box-shadow:12px 14px 0 #000,0 0 34px rgba(255,212,42,.12)}}
 
 @media(prefers-reduced-motion:reduce){.light-sweep,.fx-glow,.spark-field,.task-panel{animation:none}}
+
+/* V4.3 mobile-first polish */
+@media (max-width:760px){
+  html,body{width:100%;overflow-x:hidden}
+  .nav{height:62px;padding:0 12px;gap:8px}
+  .brand{font-size:25px;gap:6px;min-width:0}
+  .brand-mark{width:38px;height:38px;border-radius:11px;flex:0 0 38px}
+  .brand-mark img{width:46px;height:46px}
+  .brand i{font-size:15px}
+  .nav-cta{padding:8px 11px;font-size:10px;border-width:1.5px;box-shadow:3px 3px 0 #000}
+
+  .hero{
+    min-height:0;
+    padding:24px 12px 28px;
+    background-position:center top;
+    background-size:auto 760px;
+    background-attachment:scroll;
+  }
+  .hero:before{background:linear-gradient(180deg,rgba(3,7,20,.62) 0%,rgba(3,7,20,.12) 30%,rgba(3,7,20,.28) 54%,rgba(3,7,20,.92) 100%)}
+  .hero:after{background:radial-gradient(circle at 50% 30%,rgba(255,222,73,.20),transparent 30%),linear-gradient(180deg,transparent 45%,rgba(0,0,0,.28) 100%)}
+  .hero-copy{padding:0 5px;width:100%;text-align:center}
+  .eyebrow{font-size:16px;padding:7px 11px;box-shadow:3px 3px 0 #000}
+  .hero h1{font-size:clamp(58px,17vw,78px);line-height:.82;margin:20px 0 15px;text-shadow:5px 5px 0 #000}
+  .hero-copy p{font-size:13px;line-height:1.45;max-width:340px;margin:0 auto;color:#f2f5ff}
+  .mini-note{justify-content:center;margin-top:16px;gap:8px}
+  .mini-note b{font-size:36px}.mini-note span{font-size:9px;max-width:90px;text-align:left}
+  .crystal-a,.crystal-b{display:none}
+
+  /* Leave enough artwork visible behind the card without creating a giant blank area. */
+  .task-panel{
+    width:100%;
+    margin-top:22px;
+    padding:14px;
+    border-radius:18px;
+    max-height:none;
+    overflow:visible;
+    box-shadow:6px 8px 0 #000,0 0 28px rgba(255,212,42,.10);
+    background:rgba(5,9,19,.91);
+  }
+  .panel-head{align-items:center}
+  .panel-head strong{font-size:24px}.panel-head small{font-size:9px}
+  .progress-num{font-size:21px}
+  .progress-track{height:10px;margin:9px 0 12px}
+
+  .task-list{display:flex;flex-direction:column;gap:7px}
+  .task{
+    display:grid;
+    grid-template-columns:30px 34px minmax(0,1fr);
+    gap:8px;
+    padding:10px;
+    margin:0;
+    border-radius:13px;
+    align-items:start;
+  }
+  .num{width:29px;height:29px;border-radius:8px;font-size:12px}
+  .task-icon{width:33px;height:33px;border-radius:8px;font-size:16px}
+  .task-body{min-width:0;padding-top:1px}
+  .task-body h3{font-size:12px;line-height:1.2;margin-bottom:3px}
+  .task-body p{font-size:9px;line-height:1.25}
+  .task-body input{font-size:11px;padding:9px 9px;margin-top:6px;height:36px}
+  .task button{
+    grid-column:3;
+    width:100%;
+    margin-top:7px;
+    padding:9px 10px;
+    font-size:10px;
+    min-height:34px;
+  }
+  .message{font-size:10px;padding-top:8px}
+
+  /* Mobile success screen */
+  .success{padding:34px 14px 42px;gap:18px}
+  .success-art{height:220px;width:100%}
+  .success-art img{width:220px;height:220px}
+  .success-ring{width:185px;height:185px}
+  .success-copy{text-align:center}
+  .success h2{font-size:clamp(58px,16vw,76px);line-height:.8;margin:17px 0}
+  .success-copy p{font-size:13px;line-height:1.45;margin:0 auto}
+  .success-card{padding:15px;border-radius:17px;box-shadow:6px 7px 0 #000}
+  .card-title{font-size:21px;padding-bottom:10px}
+  .member-row{padding:9px;gap:9px;margin:7px 0}
+  .member-row>span{width:31px;height:31px}
+  .member-row b{font-size:10px;max-width:calc(100vw - 105px)}
+  .success-actions{gap:8px;margin-top:11px}
+  .success-actions a{padding:11px;font-size:10px}
+
+  footer{padding:18px 12px;font-size:9px}
+}
+
+@media (max-width:390px){
+  .nav-cta{padding:7px 9px;font-size:9px}
+  .brand{font-size:22px}
+  .hero{padding-left:9px;padding-right:9px}
+  .hero h1{font-size:56px}
+  .task-panel{padding:11px}
+  .task{grid-template-columns:28px 31px minmax(0,1fr);padding:9px;gap:7px}
+  .num{width:27px;height:27px}.task-icon{width:30px;height:30px;font-size:14px}
+  .task-body h3{font-size:11px}.task-body p{font-size:8px}
+  .task button{font-size:9px}
+}
+
+/* Mobile Performance Mode */
+@media (max-width: 700px) {
+  *, *::before, *::after { -webkit-backdrop-filter:none !important; backdrop-filter:none !important; }
+  .particle,.star,.spark,.floating-particle { animation-duration:8s !important; opacity:.55 !important; }
+  .beam,.light-beam,.shimmer,.scanline { animation-duration:9s !important; opacity:.4 !important; }
+  .glow,.hero-glow,.card-glow { filter:blur(6px) !important; opacity:.5 !important; }
+  .task-card,.progress-card,.success-card { box-shadow:0 8px 24px rgba(0,0,0,.25) !important; }
+}
+@media (max-width:420px) {
+  .particle:nth-child(n+9),.star:nth-child(n+9),.spark:nth-child(n+9),.floating-particle:nth-child(n+9) { display:none !important; }
+}

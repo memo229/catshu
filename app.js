@@ -10,3 +10,13 @@ function update(){const done=order.filter(k=>state[k]).length;count.textContent=
 document.querySelectorAll('[data-confirm]').forEach(btn=>btn.addEventListener('click',async()=>{const key=btn.dataset.confirm;if(tasks.find(t=>t.dataset.task===key)?.classList.contains('locked'))return msg('Finish the previous step first.',false);if(key==='comment'){const v=document.getElementById('commentLink').value.trim();if(!/^https?:\/\/.+/i.test(v))return msg('Paste your X comment link first.',false)}if(key==='wallet')return submit();state[key]=true;update();msg(key==='comment'?'Comment link accepted — the comment text is not checked.':'Task completed. Next step unlocked.');const next=document.querySelector(`[data-task="${order[order.indexOf(key)+1]}"]`);if(next)setTimeout(()=>next.scrollIntoView({behavior:'smooth',block:'center'}),150)}));
 async function submit(){const username=document.getElementById('username').value.trim().replace(/^@/,''),wallet=document.getElementById('wallet').value.trim(),commentLink=document.getElementById('commentLink').value.trim();if(!username)return msg('Enter your X username.',false);if(!/^0x[a-fA-F0-9]{40}$/.test(wallet))return msg('Enter a valid EVM wallet address.',false);if(!/^https?:\/\/.+/i.test(commentLink))return msg('Paste your comment link first.',false);state.wallet=true;update();msg('Saving your whitelist entry…');const row={x_username:username,wallet,comment_link:commentLink,tasks_completed:{follow:true,like:true,repost:true,comment:true,wallet:true},status:'completed'};const{error}=await supabaseClient.from('whitelist').insert(row);if(error){console.error(error);state.wallet=false;update();return msg('Could not save. Check Supabase/RLS settings.',false)}document.getElementById('successUsername').textContent='@'+username;document.getElementById('successWallet').textContent=wallet;document.getElementById('success').classList.remove('hidden');document.getElementById('tasks').style.display='none';document.getElementById('success').scrollIntoView({behavior:'smooth',block:'start'});document.getElementById('shareBtn').href='https://x.com/intent/post?text='+encodeURIComponent('I just joined the @CatShu whitelist! 🐱⚡');}
 update();
+
+// Lightweight mobile mode: keep the animated look while reducing decorative work.
+(function(){
+  if (window.matchMedia && window.matchMedia('(max-width:700px)').matches) {
+    document.documentElement.classList.add('mobile-performance');
+    document.querySelectorAll('.particle,.star,.spark,.floating-particle').forEach(function(el,i){
+      if(i>=10) el.style.display='none';
+    });
+  }
+})();
