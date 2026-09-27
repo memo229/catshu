@@ -1,100 +1,89 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CatShu — Whitelist</title>
-  <meta name="description" content="Join the CatShu whitelist.">
+  <meta name="description" content="Join the CatShu whitelist." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=DM+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
-  <div class="grain"></div>
+  <div class="sky-noise"></div>
   <header class="nav">
-    <a class="brand" href="#top"><span class="brand-box">🐱</span><span>CATSHU</span></a>
-    <nav><a href="#tasks">WHITELIST</a><a href="#characters">GALLERY</a><a href="https://x.com/1catshu" target="_blank" rel="noopener">X ↗</a></nav>
-    <a class="nav-cta" href="#tasks">JOIN THE LIST</a>
+    <a class="brand" href="#top"><span class="brand-mark">🐱</span><span>CATSHU</span><i>✦</i></a>
+    <nav>
+      <a href="#top">HOME</a><a href="#tasks">WHITELIST</a><a href="https://x.com/1catshu" target="_blank" rel="noreferrer">X ↗</a>
+    </nav>
+    <a class="nav-cta" href="#tasks">WHITELIST <span>›</span></a>
   </header>
 
   <main id="top">
     <section class="hero">
+      <div class="stars"></div>
       <div class="hero-copy">
-        <div class="tag">CATSHU WHITELIST</div>
-        <h1>Get your<br><span>CatShu.</span></h1>
-        <p>Complete the simple tasks, drop your wallet, and secure your place on the CatShu whitelist.</p>
-        <div class="hero-actions"><a class="btn black" href="#tasks">START NOW <span>↓</span></a><a class="btn white" href="https://x.com/1catshu" target="_blank" rel="noopener">FOLLOW @1CATSHU ↗</a></div>
-        <div class="hero-note"><span class="dot"></span> 1,111 UNIQUE CATSHU · FREE WHITELIST</div>
-      </div>
-      <div class="hero-art" aria-label="CatShu characters">
-        <div class="burst">CAT<br>SHU<br>!</div>
-        <div class="art-card card-a"><img src="assets/catshu-2.png" alt="CatShu"></div>
-        <div class="art-card card-b"><img src="assets/catshu-1.png" alt="CatShu"></div>
-        <div class="art-card card-c"><img src="assets/catshu-4.png" alt="CatShu"></div>
-        <div class="sticker">1,111<br><small>EDITION</small></div>
-      </div>
-    </section>
-
-    <section id="tasks" class="whitelist-wrap">
-      <div class="section-copy">
-        <div class="tag lime">WHITELIST ACCESS</div>
-        <h2>Do the moves.<br><span>Unlock the spot.</span></h2>
-        <p>Each completed task unlocks the next one. For the comment task, we only need your comment link — the text itself is not checked.</p>
-        <div class="side-cat"><img src="assets/catshu-3.png" alt="CatShu"></div>
+        <div class="eyebrow">CATSHU WHITELIST ✦</div>
+        <h1>GET ON<br><em>THE LIST.</em></h1>
+        <p>Complete the tasks, enter your details and secure your place on the CatShu whitelist.</p>
+        <div class="mini-note"><b>1,111</b><span>CATSHU ARE COMING</span></div>
+        <div class="crystals crystal-a">◆</div><div class="crystals crystal-b">◆</div>
       </div>
 
-      <div class="task-panel" id="taskPanel">
-        <div class="panel-top"><div><b>CATSHU ACCESS</b><span>COMPLETE ALL TASKS</span></div><strong><span id="progressCount">0</span>/5</strong></div>
+      <div class="cats-art" aria-hidden="true">
+        <div class="moon"></div>
+        <div class="cat cat-a"><img src="assets/catshu-1.png" alt=""></div>
+        <div class="cat cat-b"><img src="assets/catshu-2.png" alt=""></div>
+        <div class="cat cat-c"><img src="assets/catshu-3.png" alt=""></div>
+        <div class="cat cat-d"><img src="assets/catshu-4.png" alt=""></div>
+        <div class="cat cat-e"><img src="assets/catshu-5.png" alt=""></div>
+        <div class="mountain"></div>
+      </div>
+
+      <section class="task-panel" id="tasks">
+        <div class="panel-head"><div><strong>YOUR PROGRESS</strong><small>Complete every step</small></div><div class="progress-num"><b id="progressCount">0</b> / 5</div></div>
         <div class="progress-track"><span id="progressBar"></span></div>
 
-        <article class="task active" data-task="follow">
-          <div class="task-icon">01</div><div class="task-main"><h3>Follow CatShu on X</h3><p>Follow <b>@1catshu</b> and come back.</p><a class="task-link pink" href="https://x.com/1catshu" target="_blank" rel="noopener">OPEN X ↗</a><button class="done-btn" data-confirm="follow">I FOLLOWED ✓</button></div><div class="status">✓</div>
-        </article>
-
-        <article class="task locked" data-task="like">
-          <div class="task-icon">02</div><div class="task-main"><h3>Like the CatShu post</h3><p>Open the CatShu X page/post and leave a like.</p><a class="task-link yellow" href="https://x.com/1catshu" target="_blank" rel="noopener">OPEN POST ↗</a><button class="done-btn" data-confirm="like">LIKED ✓</button></div><div class="status">✓</div>
-        </article>
-
-        <article class="task locked" data-task="repost">
-          <div class="task-icon">03</div><div class="task-main"><h3>Repost on X</h3><p>Repost the CatShu post, then confirm.</p><a class="task-link yellow" href="https://x.com/1catshu" target="_blank" rel="noopener">OPEN X ↗</a><button class="done-btn" data-confirm="repost">REPOSTED ✓</button></div><div class="status">✓</div>
-        </article>
-
-        <article class="task locked" data-task="comment">
-          <div class="task-icon">04</div><div class="task-main"><h3>Comment + paste your link</h3><p>Comment on the CatShu post, then paste the link to your comment below.</p><div class="input"><span>↗</span><input id="commentLink" type="url" placeholder="https://x.com/.../status/..." autocomplete="off"></div><button class="done-btn" data-confirm="comment">SAVE COMMENT LINK</button></div><div class="status">✓</div>
-        </article>
-
-        <article class="task locked" data-task="wallet">
-          <div class="task-icon">05</div><div class="task-main"><h3>Connect your wallet</h3><p>Enter the EVM wallet that should receive your whitelist spot.</p><div class="input"><span>0x</span><input id="wallet" type="text" placeholder="Your wallet address" autocomplete="off"></div><div class="input"><span>@</span><input id="username" type="text" placeholder="Your X username" autocomplete="off"></div><button class="done-btn final" data-confirm="wallet">JOIN THE WHITELIST →</button></div><div class="status">✓</div>
-        </article>
-        <div id="message" class="message"></div>
-      </div>
-    </section>
-
-    <section id="success" class="success-section hidden">
-      <div class="success-card">
-        <div class="success-head"><span class="success-badge">✓ WHITELIST SUBMITTED</span><span class="success-level">CATSHU LEVEL 5/5</span></div>
-        <div class="success-body">
-          <div class="success-avatar"><img id="successAvatar" src="assets/catshu-3.png" alt="Your CatShu"></div>
-          <div class="success-tag">WELCOME TO CATSHU</div>
-          <h2>You're officially<br><span>on the list.</span></h2>
-          <p>Your details are saved. Keep an eye on <b>@1catshu</b> for the next CatShu announcement.</p>
-          <div class="proof-box"><div><small>X USERNAME</small><b id="successUsername">@username</b></div><div><small>WALLET</small><b id="successWallet">0x...</b></div></div>
-          <div class="success-actions"><a class="btn black" id="shareBtn" href="https://x.com/intent/post?text=I%20just%20joined%20the%20%40CatShu%20whitelist%20%E2%9A%A1%F0%9F%90%B1" target="_blank" rel="noopener">SHARE ON X ↗</a><a class="btn white" href="https://x.com/1catshu" target="_blank" rel="noopener">FOLLOW @1CATSHU</a></div>
+        <div class="task-list">
+          <article class="task active" data-task="follow">
+            <div class="num">1</div><div class="task-icon">𝕏</div><div class="task-body"><h3>Follow @1catshu</h3><p>Follow the official CatShu account.</p></div>
+            <button data-confirm="follow" onclick="window.open('https://x.com/1catshu','_blank')">FOLLOW ↗</button>
+          </article>
+          <article class="task locked" data-task="like">
+            <div class="num">2</div><div class="task-icon">♥</div><div class="task-body"><h3>Like the post</h3><p>Show the CatShu post some love.</p></div>
+            <button data-confirm="like" onclick="window.open('https://x.com/1catshu','_blank')">LIKE ↗</button>
+          </article>
+          <article class="task locked" data-task="repost">
+            <div class="num">3</div><div class="task-icon">↻</div><div class="task-body"><h3>Repost the post</h3><p>Repost the official CatShu post.</p></div>
+            <button data-confirm="repost" onclick="window.open('https://x.com/1catshu','_blank')">REPOST ↗</button>
+          </article>
+          <article class="task locked" data-task="comment">
+            <div class="num">4</div><div class="task-icon">●</div><div class="task-body"><h3>Comment on the post</h3><p>Comment, then paste your comment link.</p><input id="commentLink" type="url" placeholder="https://x.com/..." /></div>
+            <button data-confirm="comment">CHECK ✓</button>
+          </article>
+          <article class="task locked" data-task="wallet">
+            <div class="num">5</div><div class="task-icon">◆</div><div class="task-body"><h3>Your EVM wallet</h3><p>This is where your CatShu will live.</p><input id="wallet" type="text" placeholder="0x..." /><input id="username" class="username" type="text" placeholder="X username (without @)" /></div>
+            <button data-confirm="wallet">JOIN ↗</button>
+          </article>
         </div>
-      </div>
+        <div id="message" class="message">Start with the first task.</div>
+      </section>
     </section>
 
-    <section id="characters" class="characters">
-      <div class="characters-head"><div><div class="tag">MEET THE COLLECTION</div><h2>5 moods.<br><span>One CatShu.</span></h2></div><p>Colorful characters from the 1,111-piece collection.</p></div>
-      <div class="character-grid">
-        <div><img src="assets/catshu-1.png" alt="CatShu #001"><b>#001</b></div><div><img src="assets/catshu-2.png" alt="CatShu #002"><b>#002</b></div><div><img src="assets/catshu-3.png" alt="CatShu #003"><b>#003</b></div><div><img src="assets/catshu-4.png" alt="CatShu #004"><b>#004</b></div><div><img src="assets/catshu-5.png" alt="CatShu #005"><b>#005</b></div>
+    <section id="success" class="success hidden">
+      <div class="success-art"><div class="success-ring"></div><img src="assets/catshu-4.png" alt="CatShu"></div>
+      <div class="success-copy"><div class="eyebrow">WHITELIST SUBMITTED ✦</div><h2>YOU'RE ON<br><em>THE LIST!</em></h2><p>Congratulations! You completed all tasks and your CatShu whitelist entry is saved.</p></div>
+      <div class="success-card">
+        <div class="card-title">CATSHU MEMBER <span>✓</span></div>
+        <div class="member-row"><span>𝕏</span><div><small>X USERNAME</small><b id="successUsername">@username</b></div></div>
+        <div class="member-row"><span>◆</span><div><small>WALLET</small><b id="successWallet">0x...</b></div></div>
+        <div class="success-actions"><a id="shareBtn" href="#" target="_blank" rel="noreferrer">SHARE ON X ↗</a><a href="https://x.com/1catshu" target="_blank" rel="noreferrer">FOLLOW @1CATSHU ↗</a></div>
       </div>
     </section>
   </main>
-  <footer><span>© 2026 CATSHU</span><span>1,111 UNIQUE CATSHU</span><a href="https://x.com/1catshu" target="_blank" rel="noopener">@1CATSHU ↗</a></footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <footer>CATSHU © 2026 · 1,111 CATS · STAY TUNED 🐾</footer>
   <script src="app.js"></script>
 </body>
 </html>

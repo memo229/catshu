@@ -1,24 +1,16 @@
-CATSHU WHITELIST — REDESIGN V2
+CATSHU WHITELIST V3
 
-Files:
-- index.html
-- style.css
-- app.js
-- assets/catshu-1.png ... catshu-5.png
+This version recreates the CatShu whitelist design shown in the reference: dark cosmic blue background, gold/yellow accents, bold comic typography, cat artwork, progress/task card, and a completed whitelist member card.
 
 Supabase:
-- Uses the publishable frontend key only.
 - Table: public.whitelist
-- Required columns: x_username, wallet, tasks_completed (jsonb), status, comment_link (text)
-- Public INSERT RLS policy must allow the frontend to insert rows.
+- Required columns: id, created_at, x_username, wallet, tasks_completed, status, comment_link
+- Keep your public INSERT RLS policy enabled.
+- The frontend uses only the publishable Supabase key. Never put a service-role key in the frontend.
 
-Flow:
-1. Follow @1catshu
-2. Like the CatShu post/page
-3. Repost
-4. Paste comment link (comment text is not checked)
-5. Enter X username + EVM wallet and submit
-6. A final whitelist card appears with the saved username and wallet.
+X:
+- Official account used by the buttons: https://x.com/1catshu
+- Replace the profile URL in index.html with a specific post URL when you have the final post for Like/Repost.
 
-Replace the X account/post links in index.html with exact post URLs when you have them.
-Never put a Supabase service-role/secret key in frontend code.
+Deploy:
+Upload index.html, style.css, app.js and assets/ to your GitHub repository. Vercel/GitHub Pages can then serve it as a static site.
