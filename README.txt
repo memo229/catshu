@@ -1,29 +1,24 @@
-CATSHU WHITELIST — redesigned site
+CATSHU WHITELIST — REDESIGN V2
 
-FILES
+Files:
 - index.html
 - style.css
 - app.js
-- assets/
+- assets/catshu-1.png ... catshu-5.png
 
-IMPORTANT
-1. Put your five CatShu images in assets/ using these names:
-   catshu-1.png
-   catshu-2.png
-   catshu-3.png
-   catshu-4.png
-   catshu-5.png
+Supabase:
+- Uses the publishable frontend key only.
+- Table: public.whitelist
+- Required columns: x_username, wallet, tasks_completed (jsonb), status, comment_link (text)
+- Public INSERT RLS policy must allow the frontend to insert rows.
 
-2. Supabase table expected:
-   public.whitelist
-   x_username text
-   wallet text
-   comment_link text
-   tasks_completed jsonb
-   status text
+Flow:
+1. Follow @1catshu
+2. Like the CatShu post/page
+3. Repost
+4. Paste comment link (comment text is not checked)
+5. Enter X username + EVM wallet and submit
+6. A final whitelist card appears with the saved username and wallet.
 
-3. Keep your public INSERT RLS policy with WITH CHECK (true).
-4. This frontend uses the Supabase publishable key only. Never put a secret/service-role key in app.js.
-5. The comment step only checks that a URL was pasted; it does not inspect the comment text.
-
-The design is intentionally original: dark violet/black base, cyan + pink accents, angled character cards, no copied ticker/ribbon.
+Replace the X account/post links in index.html with exact post URLs when you have them.
+Never put a Supabase service-role/secret key in frontend code.
