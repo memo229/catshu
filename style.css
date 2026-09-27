@@ -952,3 +952,16 @@
   .top-opensea{padding:0 6px !important;font-size:6px !important}
   .nav-cta{min-width:76px !important;font-size:7.5px !important}
 }
+
+/* CATSHU — FINAL MOBILE FORM FIX */
+@media (max-width:700px){
+.task-panel{width:100%!important;max-width:100%!important;box-sizing:border-box!important;overflow:visible!important;margin-left:0!important;margin-right:0!important}
+.task-list{width:100%!important;min-width:0!important}
+.task{width:100%!important;min-width:0!important;box-sizing:border-box!important;grid-template-columns:29px 33px minmax(0,1fr)!important;gap:7px!important;align-items:start!important}
+.task-body{width:100%!important;min-width:0!important;max-width:100%!important}
+.task-body h3,.task-body p{min-width:0!important;max-width:100%!important;overflow-wrap:anywhere!important;word-break:break-word!important}
+.task-body input,.task-body input[type=text],.task-body input[type=url]{display:block!important;width:100%!important;min-width:0!important;max-width:100%!important;box-sizing:border-box!important;height:38px!important;margin:6px 0 0!important;padding:8px 9px!important;font-size:11px!important;line-height:20px!important}
+.task button{grid-column:3!important;width:100%!important;min-width:0!important;max-width:100%!important;box-sizing:border-box!important;min-height:36px!important;height:auto!important;margin:7px 0 0!important;padding:8px 9px!important;font-size:9px!important;white-space:normal!important}
+.message{width:100%!important;max-width:100%!important;box-sizing:border-box!important;overflow-wrap:anywhere!important}
+}
+@media (max-width:390px){.task-panel{padding:11px!important}.task{grid-template-columns:27px 30px minmax(0,1fr)!important;gap:6px!important;padding:9px!important}.num{width:27px!important;height:27px!important}.task-icon{width:30px!important;height:30px!important}.task-body input{height:36px!important;font-size:10px!important}.task button{min-height:34px!important;font-size:8.5px!important}}
