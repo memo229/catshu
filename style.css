@@ -965,3 +965,20 @@
 .message{width:100%!important;max-width:100%!important;box-sizing:border-box!important;overflow-wrap:anywhere!important}
 }
 @media (max-width:390px){.task-panel{padding:11px!important}.task{grid-template-columns:27px 30px minmax(0,1fr)!important;gap:6px!important;padding:9px!important}.num{width:27px!important;height:27px!important}.task-icon{width:30px!important;height:30px!important}.task-body input{height:36px!important;font-size:10px!important}.task button{min-height:34px!important;font-size:8.5px!important}}
+
+/* CatShu standalone landing page */
+.catshu-landing{display:grid;grid-template-columns:1fr 1.25fr;min-height:calc(100vh - 72px);padding:40px clamp(24px,5vw,80px) 70px;align-items:center}
+.catshu-landing .hero-copy{position:relative;left:auto;top:auto;width:auto;padding:0;z-index:6}
+.catshu-landing .cats-art{display:block;min-height:650px;z-index:4}
+.catshu-landing .hero-copy p{max-width:470px;font-size:18px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.primary-btn,.secondary-btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;font-weight:1000;font-size:12px;border-radius:8px;padding:13px 18px;transition:.18s transform,.18s filter}
+.primary-btn{background:linear-gradient(180deg,#ffe86a,#ffc928);color:#101116;border:2px solid #fff;box-shadow:4px 4px 0 #000}
+.secondary-btn{background:#0b0d14;color:#fff;border:1px solid #687186;box-shadow:3px 3px 0 #000}
+.primary-btn:hover,.secondary-btn:hover{transform:translateY(-2px);filter:brightness(1.06)}
+.info-section,.collection-section{position:relative;padding:100px clamp(20px,7vw,110px);background:#080b14;border-top:2px solid #252b3b}
+.info-section{background:linear-gradient(180deg,#080b14,#0c1222)}
+.section-title{max-width:650px}.section-title.center{margin:0 auto;text-align:center}.section-title h2{font-family:Bangers,sans-serif;font-size:clamp(62px,7vw,110px);line-height:.8;margin:25px 0;text-shadow:6px 6px 0 #000}.section-title h2 em{color:var(--gold);font-style:normal}.section-title p{color:#cbd5ea;line-height:1.6;font-size:16px;max-width:600px}.center p{margin:0 auto 26px}
+.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:55px}.info-card{position:relative;background:linear-gradient(145deg,#151923,#090b11);border:1px solid #3b4253;border-radius:12px;padding:25px;box-shadow:7px 8px 0 #000;min-height:145px}.info-card span{color:var(--gold);font-size:11px;font-weight:900}.info-card strong{display:block;font-family:Bangers;font-size:42px;margin:18px 0 5px}.info-card small{color:#7f8ba2;font-size:9px;font-weight:900;letter-spacing:1px}.collection-section{min-height:55vh;display:grid;place-items:center;background:radial-gradient(circle at 50% 30%,#172d69,#080b14 68%)}
+@media(max-width:900px){.catshu-landing{grid-template-columns:1fr;min-height:auto;padding-top:35px}.catshu-landing .hero-copy{text-align:center}.catshu-landing .hero-copy p{margin:0 auto}.hero-actions{justify-content:center}.catshu-landing .cats-art{min-height:480px}.info-grid{grid-template-columns:1fr}}
+@media(max-width:760px){.catshu-landing{padding:25px 14px 45px}.catshu-landing .hero h1{font-size:72px}.catshu-landing .cats-art{min-height:400px}.info-section,.collection-section{padding:70px 18px}.section-title h2{font-size:65px}.info-grid{margin-top:35px;gap:12px}.info-card{min-height:120px;padding:18px}.info-card strong{font-size:34px}.hero-actions a{width:100%}}

@@ -5,13 +5,12 @@
   
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CatShu — Whitelist</title>
-  <meta name="description" content="Join the CatShu whitelist." />
+  <title>CatShu — 1,111 Unique Cats</title>
+  <meta name="description" content="CatShu — 1,111 unique cats. Explore the collection and join the community." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bangers&family=DM+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
   <div class="sky-noise"></div>
@@ -27,27 +26,22 @@
       <a class="top-opensea" href="https://opensea.io/collection/catshu/overview" target="_blank" rel="noopener">OPENSEA ↗</a>
     </div>
     <nav>
-      <a href="#top">HOME</a><a href="#tasks">WHITELIST</a><a href="https://x.com/1catshu" target="_blank" rel="noreferrer">X ↗</a>
+      <a href="#top">HOME</a><a href="#about">ABOUT</a><a href="#collection">COLLECTION</a><a href="https://x.com/1catshu" target="_blank" rel="noreferrer">X ↗</a>
     </nav>
-    <a class="nav-cta" href="#tasks">WHITELIST <span>›</span></a>
+    <a class="nav-cta" href="https://opensea.io/collection/catshu/overview" target="_blank" rel="noopener">EXPLORE <span>›</span></a>
   </header>
 
   <main id="top">
-    <section class="hero">
-      <div class="fx-glow fx-glow-a"></div>
-      <div class="fx-glow fx-glow-b"></div>
-      <div class="light-sweep"></div>
-      <div class="spark-field" aria-hidden="true"></div>
-      <div class="stars"></div>
+    <section class="hero catshu-landing">
+      <div class="fx-glow fx-glow-a"></div><div class="fx-glow fx-glow-b"></div><div class="light-sweep"></div><div class="spark-field" aria-hidden="true"></div>
       <div class="hero-copy">
-        <div class="eyebrow">CATSHU WHITELIST ✦</div>
-        <h1>GET ON<br><em>THE LIST.</em></h1>
-        <p>Complete the tasks, enter your details and secure your place on the CatShu whitelist.</p>
-        <div class="mini-note"><b>1,111</b><span>CATSHU ARE COMING</span></div>
-        <div class="crystals crystal-a">◆</div><div class="crystals crystal-b">◆</div>
+        <div class="eyebrow">CATSHU ✦ NFT COLLECTION</div>
+        <h1>MEET<br><em>CATSHU.</em></h1>
+        <p>1,111 unique cats built for a community that loves art, Web3 and the unexpected.</p>
+        <div class="hero-actions"><a class="primary-btn" href="https://opensea.io/collection/catshu/overview" target="_blank" rel="noopener">VIEW COLLECTION ↗</a><a class="secondary-btn" href="https://x.com/1catshu" target="_blank" rel="noreferrer">FOLLOW ON X ↗</a></div>
+        <div class="mini-note"><b>1,111</b><span>UNIQUE<br>CATSHU</span></div>
       </div>
-
-      <div class="cats-art" aria-hidden="true">
+      <div class="cats-art landing-art" aria-hidden="true">
         <div class="moon"></div>
         <div class="cat cat-a"><img loading="lazy" decoding="async" src="assets/catshu-1.png" alt=""></div>
         <div class="cat cat-b"><img loading="lazy" decoding="async" src="assets/catshu-2.png" alt=""></div>
@@ -56,49 +50,22 @@
         <div class="cat cat-e"><img loading="lazy" decoding="async" src="assets/catshu-5.png" alt=""></div>
         <div class="mountain"></div>
       </div>
-
-      
-<section class="task-panel" id="tasks">
-        <div class="panel-head"><div><strong>YOUR PROGRESS</strong><small>Complete every step</small></div><div class="progress-num"><b id="progressCount">0</b> / 5</div></div>
-        <div class="progress-track"><span id="progressBar"></span></div>
-
-        <div class="task-list">
-          <article class="task active" data-task="follow">
-            <div class="num">1</div><div class="task-icon">𝕏</div><div class="task-body"><h3>Follow @1catshu</h3><p>Follow the official CatShu account.</p></div>
-            <button data-confirm="follow" onclick="window.open('https://x.com/intent/follow?screen_name=1catshu','_blank')">FOLLOW ↗</button>
-          </article>
-          <article class="task locked" data-task="like">
-            <div class="num">2</div><div class="task-icon">♥</div><div class="task-body"><h3>Like the post</h3><p>Show the CatShu post some love.</p></div>
-            <button data-confirm="like" onclick="window.open('https://x.com/intent/like?tweet_id=2104539179128369422','_blank')">LIKE ↗</button>
-          </article>
-          <article class="task locked" data-task="repost">
-            <div class="num">3</div><div class="task-icon">↻</div><div class="task-body"><h3>Repost the post</h3><p>Repost the official CatShu post.</p></div>
-            <button data-confirm="repost" onclick="window.open('https://x.com/intent/retweet?tweet_id=2104539179128369422','_blank')">REPOST ↗</button>
-          </article>
-          <article class="task locked" data-task="comment">
-            <div class="num">4</div><div class="task-icon">●</div><div class="task-body"><h3>Comment on the post</h3><p>Comment, then paste your comment link.</p><input id="commentLink" type="url" placeholder="https://x.com/..." /></div>
-            <button data-confirm="comment">CHECK ✓</button>
-          </article>
-          <article class="task locked" data-task="wallet">
-            <div class="num">5</div><div class="task-icon">◆</div><div class="task-body"><h3>Your EVM wallet</h3><p>This is where your CatShu will live.</p><input id="wallet" type="text" placeholder="0x..." /><input id="username" class="username" type="text" placeholder="X username (without @)" /></div>
-            <button data-confirm="wallet">JOIN ↗</button>
-          </article>
-        </div>
-        <div id="message" class="message">Start with the first task.</div>
-      </section>
     </section>
 
-    <section id="success" class="success hidden">
-      <div class="success-art"><div class="success-ring"></div><img loading="lazy" decoding="async" src="assets/catshu-4.png" alt="CatShu"></div>
-      <div class="success-copy"><div class="eyebrow">WHITELIST SUBMITTED ✦</div><h2>YOU'RE ON<br><em>THE LIST!</em></h2><p>Congratulations! You completed all tasks and your CatShu whitelist entry is saved.</p></div>
-      <div class="success-card">
-        <div class="card-title">CATSHU MEMBER <span>✓</span></div>
-        <div class="member-row"><span>𝕏</span><div><small>X USERNAME</small><b id="successUsername">@username</b></div></div>
-        <div class="member-row"><span>◆</span><div><small>WALLET</small><b id="successWallet">0x...</b></div></div>
-        <div class="success-actions"><a id="shareBtn" href="#" target="_blank" rel="noreferrer">SHARE ON X ↗</a><a href="https://x.com/1catshu" target="_blank" rel="noreferrer">FOLLOW @1CATSHU ↗</a></div>
+    <section class="info-section" id="about">
+      <div class="section-title"><div class="eyebrow">ABOUT CATSHU ✦</div><h2>1,111 CATS.<br><em>ONE COMMUNITY.</em></h2><p>CatShu is a collection of 1,111 unique cats, each with its own look and personality. This page is the home for the collection, its updates and the community.</p></div>
+      <div class="info-grid">
+        <article class="info-card"><span>01</span><strong>1,111</strong><small>UNIQUE CATS</small></article>
+        <article class="info-card"><span>02</span><strong>WEB3</strong><small>DIGITAL COLLECTION</small></article>
+        <article class="info-card"><span>03</span><strong>CATSHU</strong><small>COMMUNITY FIRST</small></article>
       </div>
     </section>
+
+    <section class="collection-section" id="collection">
+      <div class="section-title center"><div class="eyebrow">THE COLLECTION ✦</div><h2>EXPLORE<br><em>CATSHU.</em></h2><p>Discover the cats and keep up with the next chapter of CatShu.</p><a class="primary-btn" href="https://opensea.io/collection/catshu/overview" target="_blank" rel="noopener">OPEN OPENSEA ↗</a></div>
+    </section>
   </main>
+
   <footer>CATSHU © 2026 · 1,111 CATS · STAY TUNED 🐾</footer>
   <script src="app.js"></script>
 </body>
