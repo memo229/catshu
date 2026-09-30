@@ -1,5 +1,5 @@
 // CatShu countdown
-const target = new Date("2026-10-15T15:00:00+03:00").getTime();
+const target = new Date("2026-10-07T12:00:00Z").getTime();
 
 function updateCountdown() {
   const diff = Math.max(0, target - Date.now());
